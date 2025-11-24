@@ -1,6 +1,13 @@
 import type { Metadata } from "next";
+import localFont from "next/font/local";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+
+// configure custom fonts
+const myFont = localFont({
+  src: "../public/fonts/wotfard-regular.woff2",
+  display: "swap",
+});
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
