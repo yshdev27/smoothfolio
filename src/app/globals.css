@@ -349,6 +349,20 @@
   }
 }
 
+/* Slow album rotation */
+@keyframes album-rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-album-rotate {
+  animation: album-rotate 10s linear infinite;
+}
+
 /* Audio visualizer wave animation */
 @keyframes audio-wave {
   0% {
