@@ -120,7 +120,7 @@ export const experiences: Experience[] = [
       "Streamlined development workflows by optimizing internal tools and maintaining detailed technical documentation.",
     ],
     startDate: "Nov 2022",
-    endDate: "Nov 2023",
+    endDate: "Oct 2023",
     technologies: [
       {
         name: "NestJS",
