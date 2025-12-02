@@ -30,10 +30,7 @@ export default function RootLayout({
     <ViewTransitions>
       <html lang="en" suppressHydrationWarning>
         <head>
-          <script
-            src="https://sdk.scdn.co/spotify-player.js"
-            async
-          ></script>
+          <script src="https://sdk.scdn.co/spotify-player.js" async></script>
         </head>
         <body className={`${outfit.variable} font-sans antialiased`}>
           <ThemeProvider

@@ -119,8 +119,8 @@ export const experiences: Experience[] = [
       "Directed requirement flow across product, engineering, and QA for accurate implementation.",
       "Streamlined development workflows by optimizing internal tools and maintaining detailed technical documentation.",
     ],
-    startDate: "Nov 2023",
-    endDate: "Nov 2022",
+    startDate: "Nov 2022",
+    endDate: "Nov 2023",
     technologies: [
       {
         name: "NestJS",
