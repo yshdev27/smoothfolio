@@ -22,7 +22,7 @@ In Next.js (when using the App Router), the _src/app_ directory serves as the fo
 
 Suppose you want to have a homepage accessible at:
 
-_http://localhost:3000/_
+_/_
 
 To achieve this, ensure that a _page.tsx_ file exists inside the _src/app_ directory. By default, this file is created when you initialize a Next.js project.
 
@@ -34,7 +34,7 @@ Now, let's say you want to create additional pages with different URLs.
 
 To create a page accessible at:
 
-_http://localhost:3000/about_
+_/about_
 
 Follow these steps:
 
@@ -52,7 +52,7 @@ export default function About() {
 
 If you want a page accessible at:
 
-_http://localhost:3000/ramx_
+_/ramx_
 
 Follow the same steps as above:
 
@@ -88,9 +88,9 @@ src/app/
 
 Suppose you want to handle the following routes:
 
-- _http://localhost:3000/blog_
-- _http://localhost:3000/blog/first_
-- _http://localhost:3000/blog/second_
+- _/blog_
+- _/blog/first_
+- _/blog/second_
 
 ### Steps:
 
@@ -99,7 +99,7 @@ Suppose you want to handle the following routes:
 
 This will create the route:
 
-_http://localhost:3000/blog_
+_/blog_
 
 #### Handling _/blog/first_ and _/blog/second_
 
@@ -181,7 +181,7 @@ export default function ProductPage({
 }
 ```
 
-Now, if you visit _http://localhost:3000/products/100_, the _params.productId_ will be _100_, and it will render dynamically.
+Now, if you visit _/products/100_, the _params.productId_ will be _100_, and it will render dynamically.
 
 ---
 
@@ -191,10 +191,10 @@ Now, if you visit _http://localhost:3000/products/100_, the _params.productId_ w
 
 Let's say you need URLs like:
 
-- _http://localhost:3000/categories/electronics_
-- _http://localhost:3000/categories/fashion_
-- _http://localhost:3000/categories/electronics/phones_
-- _http://localhost:3000/categories/fashion/shoes_
+- _/categories/electronics_
+- _/categories/fashion_
+- _/categories/electronics/phones_
+- _/categories/fashion/shoes_
 
 ### **Steps to Implement:**
 
@@ -251,9 +251,9 @@ If you need to handle **any level of nested paths**, use a **catch-all segment**
 
 ### **Example URLs:**
 
-- _http://localhost:3000/docs_
-- _http://localhost:3000/docs/getting-started_
-- _http://localhost:3000/docs/api/reference_
+- _/docs_
+- _/docs/getting-started_
+- _/docs/api/reference_
 
 ### **How to Implement:**
 

@@ -33,12 +33,7 @@ export default function RootLayout({
           <script
             src="https://sdk.scdn.co/spotify-player.js"
             async
-            crossOrigin="anonymous"
           ></script>
-          <meta
-            httpEquiv="Content-Security-Policy"
-            content="upgrade-insecure-requests"
-          />
         </head>
         <body className={`${outfit.variable} font-sans antialiased`}>
           <ThemeProvider
