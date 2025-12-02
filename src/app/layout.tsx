@@ -1,4 +1,5 @@
 // import UmamiAnalytics from '@/components/analytics/UmamiAnalytics';
+import { Analytics } from "@vercel/analytics/next";
 import ChatBubble from "@/components/common/ChatBubble";
 import ClientOnly from "@/components/common/ClientOnly";
 import Footer from "@/components/common/Footer";
@@ -51,6 +52,7 @@ export default function RootLayout({
               {/* <UmamiAnalytics /> */}
             </ReactLenis>
           </ThemeProvider>
+          <Analytics />
         </body>
       </html>
     </ViewTransitions>
