@@ -1,0 +1,31 @@
+import { navbarConfig } from "@/config/Navbar";
+import { Link } from "next-view-transitions";
+import React from "react";
+
+import Container from "./Container";
+import { ThemeToggleButton } from "./ThemeSwich";
+
+export default function Navbar() {
+  return (
+    <Container className="sticky top-0 z-20 rounded-md py-4 backdrop-blur-sm">
+      <div className="flex items-center justify-between px-6">
+        <div className="flex items-baseline gap-4">
+          <div className="flex items-center justify-center gap-4">
+            {navbarConfig.navItems.map((item) => (
+              <Link
+                className="text-xs font-medium transition-all duration-300 ease-in-out hover:underline hover:decoration-2 hover:underline-offset-4 md:text-base"
+                key={item.label}
+                href={item.href}
+              >
+                {item.label}
+              </Link>
+            ))}
+          </div>
+        </div>
+        <div className="flex items-center gap-4">
+          <ThemeToggleButton variant="circle" start="top-right" blur />
+        </div>
+      </div>
+    </Container>
+  );
+}
