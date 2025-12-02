@@ -2,7 +2,10 @@ import { NextRequest, NextResponse } from "next/server";
 
 const client_id = process.env.SPOTIFY_CLIENT_ID;
 const client_secret = process.env.SPOTIFY_CLIENT_SECRET;
-const redirect_uri = "http://127.0.0.1:3000/api/spotify/callback";
+const redirect_uri =
+  process.env.NODE_ENV === "production"
+    ? `https://yashx.in/api/spotify/callback`
+    : "http://127.0.0.1:3000/api/spotify/callback";
 
 export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams;

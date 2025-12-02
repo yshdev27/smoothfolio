@@ -14,7 +14,7 @@ export const siteConfig = {
   name: heroConfig.name,
   title: "Smooth Portfolio",
   description: "Portfolio of Yash",
-  url: process.env.NEXT_PUBLIC_URL || "http://localhost:3000",
+  url: process.env.NEXT_PUBLIC_URL || "https://localhost:3000",
   ogImage: "/meta/opengraph-image.png",
   author: {
     name: about.name,
