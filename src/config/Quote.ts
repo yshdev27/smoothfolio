@@ -27,4 +27,16 @@ export const quotes = [
     quote: `You have to do the idea to get a better one`,
     author: "Jack Butcher",
   },
+  {
+    quote: `Change is easy. Improvement is far more difficult`,
+    author: "Ferdinand Porsche",
+  },
+  {
+    quote: `No one ever made a decision because of a number. They need a story.`,
+    author: "Daniel Kahneman",
+  },
+  {
+    quote: `Normal is an illusion. What is normal for the spider is chaos for the fly`,
+    author: "Charles Addams",
+  },
 ];
