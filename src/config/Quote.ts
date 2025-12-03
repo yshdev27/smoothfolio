@@ -39,4 +39,8 @@ export const quotes = [
     quote: `Normal is an illusion. What is normal for the spider is chaos for the fly`,
     author: "Charles Addams",
   },
+  {
+    quote: `The giver is the recipient`,
+    author: "Buddha",
+  },
 ];
