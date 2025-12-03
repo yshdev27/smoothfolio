@@ -10,6 +10,9 @@ import NodeJs from "@/components/technologies/NodeJs";
 import PostgreSQL from "@/components/technologies/PostgreSQL";
 import Prisma from "@/components/technologies/Prisma";
 import ReactIcon from "@/components/technologies/ReactIcon";
+import Motion from "@/components/technologies/Motion";
+import Figma from "@/components/technologies/Figma";
+
 // Technology Components
 import TypeScript from "@/components/technologies/TypeScript";
 
@@ -24,6 +27,8 @@ export const skillComponents = {
   MongoDB: MongoDB,
   Prisma: Prisma,
   JavaScript: JavaScript,
+  Motion: Motion,
+  Figma: Figma,
 };
 
 export const heroConfig = {
@@ -59,12 +64,23 @@ export const heroConfig = {
       href: "https://www.postgresql.org/",
       component: "PostgreSQL",
     },
+    {
+      name: "Motion",
+      href: "https://www.motion.dev/",
+      component: "Motion",
+    },
+
+    {
+      name: "Figma",
+      href: "https://www.figma.com/",
+      component: "Figma",
+    },
   ],
 
   // Description Configuration
   description: {
     template:
-      "I build interactive web apps using {skills:0}, {skills:1}, {skills:2}, {skills:3} and {skills:4}. With a focus on <b>UI</b> design. Enthusiastic about <b>Three.js</b>, driven by a keen eye for design.",
+      "I create apps and AI agents to make your life easier using {skills:0}, {skills:1}, {skills:2}, {skills:3} and {skills:4}. I make unreal UIs possible in {skills:6}, making it alive with {skills:5}.",
   },
 
   // Buttons Configuration
