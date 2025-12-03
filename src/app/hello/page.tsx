@@ -76,10 +76,10 @@ export default function HelloPage() {
             Our Journey
           </h2>
           <p className="text-muted-foreground leading-relaxed">
-            Every project we undertake is a unique journey filled with creativity,
-            collaboration, and innovation. We believe in creating meaningful
-            experiences that not only meet expectations but exceed them in every
-            way possible.
+            Every project we undertake is a unique journey filled with
+            creativity, collaboration, and innovation. We believe in creating
+            meaningful experiences that not only meet expectations but exceed
+            them in every way possible.
           </p>
           <p className="text-muted-foreground leading-relaxed">
             Through dedication and passion, we transform ideas into reality,
