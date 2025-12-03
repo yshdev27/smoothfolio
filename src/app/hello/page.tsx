@@ -70,6 +70,24 @@ export default function HelloPage() {
           </div>
         </div>
 
+        {/* Section 2 - Text Only */}
+        <div className="max-w-3xl mx-auto text-center space-y-4">
+          <h2 className={`text-3xl font-bold ${gochiHand.className}`}>
+            Our Journey
+          </h2>
+          <p className="text-muted-foreground leading-relaxed">
+            Every project we undertake is a unique journey filled with creativity,
+            collaboration, and innovation. We believe in creating meaningful
+            experiences that not only meet expectations but exceed them in every
+            way possible.
+          </p>
+          <p className="text-muted-foreground leading-relaxed">
+            Through dedication and passion, we transform ideas into reality,
+            bringing together design, technology, and human connection to craft
+            solutions that truly make a difference.
+          </p>
+        </div>
+
         {/* Photo Gallery */}
         <div className="mt-20">
           <ScrollingGallery />
