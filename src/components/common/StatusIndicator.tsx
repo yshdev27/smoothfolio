@@ -16,6 +16,7 @@ export default function StatusIndicator() {
     timeWorked: "0 mins",
     lastActivity: "Today",
   });
+  const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
     const fetchStatus = async () => {
@@ -40,10 +41,17 @@ export default function StatusIndicator() {
     return () => clearInterval(interval);
   }, []);
 
+  const handleClick = () => {
+    setIsOpen(!isOpen);
+  };
+
   return (
-    <Tooltip delayDuration={0}>
+    <Tooltip delayDuration={0} open={isOpen} onOpenChange={setIsOpen}>
       <TooltipTrigger asChild>
-        <div className="absolute -bottom-1 -right-1 w-6 h-6 bg-background border-2 border-border rounded-full flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-200">
+        <div 
+          className="absolute -bottom-1 -right-1 w-6 h-6 bg-background border-2 border-border rounded-full flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-200 cursor-pointer"
+          onClick={handleClick}
+        >
           <div
             className={`w-2 h-2 rounded-full ${status.isOnline ? "bg-green-500" : "bg-muted-foreground"}`}
           ></div>
