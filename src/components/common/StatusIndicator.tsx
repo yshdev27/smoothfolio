@@ -48,7 +48,7 @@ export default function StatusIndicator() {
   return (
     <Tooltip delayDuration={0} open={isOpen} onOpenChange={setIsOpen}>
       <TooltipTrigger asChild>
-        <div 
+        <div
           className="absolute -bottom-1 -right-1 w-6 h-6 bg-background border-2 border-border rounded-full flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-200 cursor-pointer"
           onClick={handleClick}
         >
