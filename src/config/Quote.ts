@@ -16,8 +16,8 @@ export const quotes = [
     author: "Phil Knight",
   },
   {
-    quote: `If the pain doesn't kill me, it will only make me stronger.`,
-    author: "Sung Jin-Woo, Solo Leveling",
+    quote: `It is not our abilities that show what we truly are… it is our choices.`,
+    author: "Albus Dumbledore",
   },
   {
     quote: `When you're backed against the wall, break the goddamn thing down`,
@@ -42,5 +42,17 @@ export const quotes = [
   {
     quote: `The giver is the recipient`,
     author: "Buddha",
+  },
+  {
+    quote: `What is the highest technique you hope to acheive? To have no technique`,
+    author: "Bruce Lee",
+  },
+  {
+    quote: `When a man can't find a deep sense of meaning, he distract himself with pleasure`,
+    author: "Viktor Frankl",
+  },
+  {
+    quote: `Fear is a teacher and I don't skip class`,
+    author: "Muhammad Ali",
   },
 ];
