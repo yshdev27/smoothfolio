@@ -63,45 +63,60 @@ export default function FaceGallery({ photos, profile }: FaceGalleryProps) {
     const scrollContainer = scrollRef.current;
     if (!scrollContainer) return;
 
-    let isScrolling = false;
+    let isResetting = false;
+    let scrollTimeout: NodeJS.Timeout;
 
     const handleScroll = () => {
-      if (isScrolling) return;
+      if (isResetting) return;
 
-      const { scrollLeft, scrollWidth, clientWidth } = scrollContainer;
-      const itemWidth = 92; // 80px width + 12px gap
-      const singleSetWidth = photos.length * itemWidth;
+      clearTimeout(scrollTimeout);
 
-      // Reset to middle set when reaching boundaries (with more tolerance)
-      if (scrollLeft < itemWidth * 2) {
-        isScrolling = true;
-        scrollContainer.style.scrollBehavior = "auto";
-        scrollContainer.scrollLeft = scrollLeft + singleSetWidth;
-        scrollContainer.style.scrollBehavior = "smooth";
-        setTimeout(() => {
-          isScrolling = false;
-        }, 50);
-      } else if (scrollLeft > singleSetWidth * 2 - itemWidth * 2) {
-        isScrolling = true;
-        scrollContainer.style.scrollBehavior = "auto";
-        scrollContainer.scrollLeft = scrollLeft - singleSetWidth;
-        scrollContainer.style.scrollBehavior = "smooth";
-        setTimeout(() => {
-          isScrolling = false;
-        }, 50);
-      }
+      scrollTimeout = setTimeout(() => {
+        const { scrollLeft } = scrollContainer;
+        const itemWidth = 92; // 80px width + 12px gap
+        const singleSetWidth = photos.length * itemWidth;
+
+        // Check if we need to reset position
+        if (scrollLeft < itemWidth * 3) {
+          // Near start - jump to equivalent position in middle set
+          isResetting = true;
+          const targetScroll = scrollLeft + singleSetWidth;
+          scrollContainer.scrollTo({
+            left: targetScroll,
+            behavior: "instant" as ScrollBehavior,
+          });
+          requestAnimationFrame(() => {
+            isResetting = false;
+          });
+        } else if (scrollLeft > singleSetWidth * 2 - itemWidth * 3) {
+          // Near end - jump to equivalent position in middle set
+          isResetting = true;
+          const targetScroll = scrollLeft - singleSetWidth;
+          scrollContainer.scrollTo({
+            left: targetScroll,
+            behavior: "instant" as ScrollBehavior,
+          });
+          requestAnimationFrame(() => {
+            isResetting = false;
+          });
+        }
+      }, 50);
     };
 
     scrollContainer.addEventListener("scroll", handleScroll, { passive: true });
 
     // Initialize scroll to middle set
-    setTimeout(() => {
-      scrollContainer.style.scrollBehavior = "auto";
-      scrollContainer.scrollLeft = photos.length * 92;
-      scrollContainer.style.scrollBehavior = "smooth";
-    }, 0);
+    requestAnimationFrame(() => {
+      scrollContainer.scrollTo({
+        left: photos.length * 92,
+        behavior: "instant" as ScrollBehavior,
+      });
+    });
 
-    return () => scrollContainer.removeEventListener("scroll", handleScroll);
+    return () => {
+      scrollContainer.removeEventListener("scroll", handleScroll);
+      clearTimeout(scrollTimeout);
+    };
   }, [photos.length]);
 
   const slideVariants = {
@@ -120,7 +135,7 @@ export default function FaceGallery({ photos, profile }: FaceGalleryProps) {
   };
 
   return (
-    <section className="mx-auto max-w-4xl space-y-4 px-4 py-6">
+    <section className="mx-auto max-w-4xl space-y-8 px-4 py-6 md:space-y-4">
       {/* Hero Image */}
       <motion.div
         className="relative aspect-[3/4] w-full overflow-hidden rounded-none bg-neutral-900 md:rounded-xl"
@@ -186,7 +201,7 @@ export default function FaceGallery({ photos, profile }: FaceGalleryProps) {
                   scale: isActive ? 1 : 0.75,
                 }}
                 transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
-                className="relative h-28 w-20 shrink-0 overflow-hidden rounded-lg bg-neutral-900"
+                className="relative h-20 w-16 shrink-0 overflow-hidden rounded-lg bg-neutral-900 md:h-28 md:w-20"
               >
                 <Image
                   src={photo.src}
