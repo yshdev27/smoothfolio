@@ -183,7 +183,7 @@ export default function FaceGallery({ photos, profile }: FaceGalleryProps) {
 
         <div
           ref={scrollRef}
-          className="flex gap-3 overflow-x-auto pb-2 scrollbar-hide scroll-smooth"
+          className="flex gap-3 overflow-x-auto pb-2 scroll-smooth [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
         >
           {infinitePhotos.map((photo, index) => {
             const actualIndex = index % photos.length;
