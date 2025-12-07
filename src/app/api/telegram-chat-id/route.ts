@@ -24,7 +24,7 @@ export async function GET() {
     }
 
     // Extract chat IDs from recent messages
-    const chatIds = data.result.map((update: any) => ({
+    const chatIds = data.result.map((update: Record<string, any>) => ({
       chatId: update.message?.chat?.id || update.message?.from?.id,
       username:
         update.message?.chat?.username || update.message?.from?.username,
@@ -36,7 +36,7 @@ export async function GET() {
     return NextResponse.json({
       message: "Send a message to your bot on Telegram, then refresh this page",
       updates: data.result,
-      chatIds: [...new Set(chatIds.filter((c) => c.chatId))],
+      chatIds: [...new Set(chatIds.filter((c: { chatId: any }) => c.chatId))],
     });
   } catch (error) {
     console.error("Error:", error);

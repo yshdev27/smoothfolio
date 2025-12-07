@@ -1,12 +1,14 @@
-import { systemPrompt } from "@/config/ChatPrompt";
-import { createParser } from "eventsource-parser";
 import { NextRequest, NextResponse } from "next/server";
+import { createParser } from "eventsource-parser";
 import * as z from "zod";
+import { systemPrompt } from "@/config/ChatPrompt";
+
+// ----------------- Rate limiting -----------------
 
 const rateLimitStore = new Map<string, { count: number; resetTime: number }>();
 
-const RATE_LIMIT_WINDOW = 60 * 1000;
-const RATE_LIMIT_MAX_REQUESTS = 20; // Increased for testing
+const RATE_LIMIT_WINDOW = 60 * 1000; // 60s
+const RATE_LIMIT_MAX_REQUESTS = 20;
 
 const chatSchema = z.object({
   message: z.string().min(1).max(2000),
@@ -14,12 +16,16 @@ const chatSchema = z.object({
     .array(
       z.object({
         role: z.enum(["user", "model"]),
-        parts: z.array(z.object({ text: z.string() })),
+        parts: z
+          .array(z.object({ text: z.string() }))
+          .min(1, "Each message must have at least one part"),
       }),
     )
     .optional()
     .default([]),
 });
+
+// ----------------- Helpers -----------------
 
 function sanitizeInput(input: string): string {
   const injectionPatterns = [
@@ -47,9 +53,9 @@ function sanitizeInput(input: string): string {
 
   let sanitized = input;
 
-  injectionPatterns.forEach((pattern) => {
+  for (const pattern of injectionPatterns) {
     sanitized = sanitized.replace(pattern, "[REDACTED]");
-  });
+  }
 
   sanitized = sanitized.trim().replace(/\s+/g, " ");
 
@@ -65,15 +71,9 @@ function getClientIP(request: NextRequest): string {
   const realIP = request.headers.get("x-real-ip");
   const cfConnectingIP = request.headers.get("cf-connecting-ip");
 
-  if (forwarded) {
-    return forwarded.split(",")[0].trim();
-  }
-  if (realIP) {
-    return realIP;
-  }
-  if (cfConnectingIP) {
-    return cfConnectingIP;
-  }
+  if (forwarded) return forwarded.split(",")[0].trim();
+  if (realIP) return realIP;
+  if (cfConnectingIP) return cfConnectingIP;
 
   return "unknown";
 }
@@ -106,8 +106,19 @@ function checkRateLimit(clientIP: string): {
   };
 }
 
+function safeJsonParse(text: string): unknown {
+  try {
+    return JSON.parse(text);
+  } catch {
+    return text;
+  }
+}
+
+// ----------------- POST (main chat endpoint) -----------------
+
 export async function POST(request: NextRequest) {
   try {
+    // --- Rate limiting ---
     const clientIP = getClientIP(request);
     const rateLimit = checkRateLimit(clientIP);
 
@@ -128,6 +139,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    // --- API key ---
     const apiKey = process.env.GEMINI_API_KEY;
     if (!apiKey) {
       console.error("GEMINI_API_KEY not configured");
@@ -137,36 +149,34 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    // --- Parse & validate body ---
     const body = await request.json();
     const validatedData = chatSchema.parse(body);
 
-    // Prepare the request body for Gemini REST API
+    // Optionally cap history length to avoid huge payloads
+    const history = validatedData.history.slice(-20);
+
+    // Build contents from history, sanitizing only user messages
+    const contents = history.map((msg) => ({
+      role: msg.role,
+      parts: msg.parts.map((part) => ({
+        text: msg.role === "user" ? sanitizeInput(part.text) : part.text,
+      })),
+    }));
+
+    // Current user message
+    contents.push({
+      role: "user",
+      parts: [{ text: sanitizeInput(validatedData.message) }],
+    });
+
+    // --- Gemini request body ---
     const requestBody = {
-      contents: [
-        {
-          parts: [{ text: systemPrompt }],
-          role: "user",
-        },
-        {
-          parts: [
-            { text: "I understand. I will act as your portfolio assistant." },
-          ],
-          role: "model",
-        },
-        // Add conversation history
-        ...validatedData.history.map((msg) => ({
-          ...msg,
-          parts: msg.parts.map((part) => ({
-            ...part,
-            text: msg.role === "user" ? sanitizeInput(part.text) : part.text,
-          })),
-        })),
-        // Add current message
-        {
-          parts: [{ text: sanitizeInput(validatedData.message) }],
-          role: "user",
-        },
-      ],
+      systemInstruction: {
+        role: "system",
+        parts: [{ text: systemPrompt }],
+      },
+      contents,
       generationConfig: {
         maxOutputTokens: 512,
         temperature: 0.7,
@@ -175,16 +185,20 @@ export async function POST(request: NextRequest) {
       },
     };
 
-    const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-exp:streamGenerateContent?alt=sse&key=${apiKey}`;
+    // --- Gemini endpoint (stable model, better for free tier) ---
+    const geminiUrl =
+      "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-001:streamGenerateContent?alt=sse";
 
     const response = await fetch(geminiUrl, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        "x-goog-api-key": apiKey,
       },
       body: JSON.stringify(requestBody),
     });
 
+    // --- Propagate real Gemini errors instead of hiding them ---
     if (!response.ok) {
       const errorText = await response.text();
       console.error("Gemini API Error:", {
@@ -193,21 +207,15 @@ export async function POST(request: NextRequest) {
         body: errorText,
       });
 
-      if (response.status === 429) {
-        return NextResponse.json(
-          { error: "Rate limit exceeded. Please wait a moment and try again." },
-          { status: 429 },
-        );
-      }
-
-      if (response.status === 404) {
-        return NextResponse.json(
-          { error: "Invalid API configuration. Please check your API key." },
-          { status: 500 },
-        );
-      }
-
-      throw new Error(`Gemini API error: ${response.status}`);
+      // Pass through the actual status so you can see if it's 400/403/429/500
+      return NextResponse.json(
+        {
+          error: "Gemini API error",
+          status: response.status,
+          details: safeJsonParse(errorText),
+        },
+        { status: response.status },
+      );
     }
 
     const encoder = new TextEncoder();
@@ -217,22 +225,26 @@ export async function POST(request: NextRequest) {
         try {
           const parser = createParser({
             onEvent: (event) => {
+              if (!event.data) return;
+
+              // Sometimes there can be control messages; be defensive
+              let data: Record<string, any>;
               try {
-                const data = JSON.parse(event.data);
-                const text = data?.candidates?.[0]?.content?.parts?.[0]?.text;
-                if (text) {
-                  // Send as Server-Sent Event format
-                  const sseData = `data: ${JSON.stringify({ text })}\n\n`;
-                  controller.enqueue(encoder.encode(sseData));
-                }
-              } catch (parseError) {
-                console.error("Parse error:", parseError);
+                data = JSON.parse(event.data);
+              } catch {
+                return;
               }
+
+              const text = data?.candidates?.[0]?.content?.parts?.[0]?.text;
+              if (!text) return;
+
+              const sseData = `data: ${JSON.stringify({ text })}\n\n`;
+              controller.enqueue(encoder.encode(sseData));
             },
           });
 
           if (!response.body) {
-            throw new Error("No response body");
+            throw new Error("No response body from Gemini");
           }
 
           const reader = response.body.getReader();
@@ -241,16 +253,17 @@ export async function POST(request: NextRequest) {
           while (true) {
             const { done, value } = await reader.read();
             if (done) break;
-
             parser.feed(decoder.decode(value));
           }
 
-          // Send completion signal
+          // Signal completion
           controller.enqueue(encoder.encode('data: {"done": true}\n\n'));
           controller.close();
-        } catch (error) {
-          console.error("Streaming error:", error);
-          const errorData = `data: ${JSON.stringify({ error: "Stream error occurred" })}\n\n`;
+        } catch (err) {
+          console.error("Streaming error:", err);
+          const errorData = `data: ${JSON.stringify({
+            error: "Stream error occurred",
+          })}\n\n`;
           controller.enqueue(encoder.encode(errorData));
           controller.close();
         }
@@ -261,7 +274,7 @@ export async function POST(request: NextRequest) {
       status: 200,
       headers: {
         "Content-Type": "text/event-stream",
-        "Cache-Control": "no-cache",
+        "Cache-Control": "no-cache, no-transform",
         Connection: "keep-alive",
         "Access-Control-Allow-Origin": "*",
         "X-RateLimit-Limit": RATE_LIMIT_MAX_REQUESTS.toString(),
@@ -275,7 +288,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json(
         {
           error: "Invalid request data",
-          details: error.errors,
+          details: error.issues,
         },
         { status: 400 },
       );
@@ -287,6 +300,8 @@ export async function POST(request: NextRequest) {
     );
   }
 }
+
+// ----------------- GET (method guard) -----------------
 
 export async function GET() {
   return NextResponse.json({ error: "Method not allowed" }, { status: 405 });
