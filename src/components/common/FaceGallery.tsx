@@ -63,23 +63,43 @@ export default function FaceGallery({ photos, profile }: FaceGalleryProps) {
     const scrollContainer = scrollRef.current;
     if (!scrollContainer) return;
 
+    let isScrolling = false;
+
     const handleScroll = () => {
+      if (isScrolling) return;
+
       const { scrollLeft, scrollWidth, clientWidth } = scrollContainer;
       const itemWidth = 92; // 80px width + 12px gap
       const singleSetWidth = photos.length * itemWidth;
 
-      // Reset to middle set when reaching boundaries
-      if (scrollLeft <= itemWidth) {
-        scrollContainer.scrollLeft = singleSetWidth + itemWidth;
-      } else if (scrollLeft >= singleSetWidth * 2 - clientWidth) {
-        scrollContainer.scrollLeft = singleSetWidth - clientWidth + itemWidth;
+      // Reset to middle set when reaching boundaries (with more tolerance)
+      if (scrollLeft < itemWidth * 2) {
+        isScrolling = true;
+        scrollContainer.style.scrollBehavior = "auto";
+        scrollContainer.scrollLeft = scrollLeft + singleSetWidth;
+        scrollContainer.style.scrollBehavior = "smooth";
+        setTimeout(() => {
+          isScrolling = false;
+        }, 50);
+      } else if (scrollLeft > singleSetWidth * 2 - itemWidth * 2) {
+        isScrolling = true;
+        scrollContainer.style.scrollBehavior = "auto";
+        scrollContainer.scrollLeft = scrollLeft - singleSetWidth;
+        scrollContainer.style.scrollBehavior = "smooth";
+        setTimeout(() => {
+          isScrolling = false;
+        }, 50);
       }
     };
 
-    scrollContainer.addEventListener("scroll", handleScroll);
+    scrollContainer.addEventListener("scroll", handleScroll, { passive: true });
 
     // Initialize scroll to middle set
-    scrollContainer.scrollLeft = photos.length * 92;
+    setTimeout(() => {
+      scrollContainer.style.scrollBehavior = "auto";
+      scrollContainer.scrollLeft = photos.length * 92;
+      scrollContainer.style.scrollBehavior = "smooth";
+    }, 0);
 
     return () => scrollContainer.removeEventListener("scroll", handleScroll);
   }, [photos.length]);
