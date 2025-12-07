@@ -210,18 +210,6 @@ export default function FaceGallery({ photos, profile }: FaceGalleryProps) {
                   className="object-cover"
                   sizes="80px"
                 />
-                {/* Active indicator overlay */}
-                {isActive && (
-                  <motion.div
-                    layoutId="active-indicator"
-                    className="absolute inset-0 border-2 border-primary"
-                    transition={{
-                      type: "spring",
-                      stiffness: 300,
-                      damping: 30,
-                    }}
-                  />
-                )}
               </motion.button>
             );
           })}
