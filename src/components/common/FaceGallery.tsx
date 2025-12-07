@@ -36,8 +36,14 @@ export default function FaceGallery({ photos, profile }: FaceGalleryProps) {
 
   const current = photos[active];
 
-  // Create triple array for seamless infinite loop
-  const infinitePhotos = [...photos, ...photos, ...photos];
+  // Create larger array for smoother infinite loop
+  const infinitePhotos = [
+    ...photos,
+    ...photos,
+    ...photos,
+    ...photos,
+    ...photos,
+  ];
 
   const handleSetActive = (index: number) => {
     setDirection(index > active ? 1 : -1);
@@ -76,11 +82,11 @@ export default function FaceGallery({ photos, profile }: FaceGalleryProps) {
         const itemWidth = 92; // 80px width + 12px gap
         const singleSetWidth = photos.length * itemWidth;
 
-        // Check if we need to reset position
-        if (scrollLeft < itemWidth * 4) {
-          // Near start - jump to equivalent position in middle set
+        // With 5 repetitions, reset when we're 2 sets away from center
+        if (scrollLeft < singleSetWidth * 1.5) {
+          // Near start - jump to equivalent position in center set
           isResetting = true;
-          const targetScroll = scrollLeft + singleSetWidth;
+          const targetScroll = scrollLeft + singleSetWidth * 2;
           scrollContainer.scrollTo({
             left: targetScroll,
             behavior: "instant" as ScrollBehavior,
@@ -88,10 +94,10 @@ export default function FaceGallery({ photos, profile }: FaceGalleryProps) {
           requestAnimationFrame(() => {
             isResetting = false;
           });
-        } else if (scrollLeft > singleSetWidth * 2 - itemWidth * 4) {
-          // Near end - jump to equivalent position in middle set
+        } else if (scrollLeft > singleSetWidth * 3.5) {
+          // Near end - jump to equivalent position in center set
           isResetting = true;
-          const targetScroll = scrollLeft - singleSetWidth;
+          const targetScroll = scrollLeft - singleSetWidth * 2;
           scrollContainer.scrollTo({
             left: targetScroll,
             behavior: "instant" as ScrollBehavior,
@@ -100,15 +106,15 @@ export default function FaceGallery({ photos, profile }: FaceGalleryProps) {
             isResetting = false;
           });
         }
-      }, 50);
+      }, 100);
     };
 
     scrollContainer.addEventListener("scroll", handleScroll, { passive: true });
 
-    // Initialize scroll to middle set
+    // Initialize scroll to center set (set 2 of 5)
     requestAnimationFrame(() => {
       scrollContainer.scrollTo({
-        left: photos.length * 92,
+        left: photos.length * 92 * 2,
         behavior: "instant" as ScrollBehavior,
       });
     });
