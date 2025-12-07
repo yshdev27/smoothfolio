@@ -99,7 +99,15 @@ export default function HelloPage() {
 
         {/* Photo Gallery */}
         <div className="mt-20">
-          <FaceGallery photos={PHOTOS} />
+          <FaceGallery
+            photos={PHOTOS}
+            profile={{
+              name: "Yash",
+              username: "g.yash27",
+              bio: "Can't think of anything funny to put here.",
+              profilePic: "/images/1.png",
+            }}
+          />
         </div>
       </div>
     </Container>

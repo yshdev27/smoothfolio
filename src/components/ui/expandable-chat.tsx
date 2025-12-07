@@ -54,7 +54,7 @@ const ExpandableChat: React.FC<ExpandableChatProps> = ({
   return (
     <div
       className={cn(
-        `fixed ${chatConfig.positions[position]} z-[9999] hover:cursor-pointer`,
+        `fixed ${chatConfig.positions[position]} z-9999 hover:cursor-pointer`,
         className,
       )}
       {...props}
