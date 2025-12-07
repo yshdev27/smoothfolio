@@ -28,20 +28,15 @@ interface Message {
   isStreaming?: boolean;
 }
 
-const initialMessages: Message[] = [
-  {
-    id: 1,
-    text: "Hello! I'm Yash's Assistant. How can I help you?",
-    sender: "bot",
-    timestamp: new Date().toLocaleTimeString("en-US", {
-      hour: "2-digit",
-      minute: "2-digit",
-    }),
-  },
-];
-
 const ChatBubble: React.FC = () => {
-  const [messages, setMessages] = useState<Message[]>(initialMessages);
+  const [messages, setMessages] = useState<Message[]>([
+    {
+      id: 1,
+      text: "Hello! I'm Yash's Assistant. How can I help you?",
+      sender: "bot",
+      timestamp: "Just now",
+    },
+  ]);
   const [newMessage, setNewMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const scrollAreaRef = useRef<HTMLDivElement>(null);

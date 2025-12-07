@@ -1,6 +1,5 @@
 // import UmamiAnalytics from '@/components/analytics/UmamiAnalytics';
 import ChatBubble from "@/components/common/ChatBubble";
-import ClientOnly from "@/components/common/ClientOnly";
 import Footer from "@/components/common/Footer";
 import Navbar from "@/components/common/Navbar";
 // import OnekoCat from '@/components/common/OnekoCat';
@@ -32,7 +31,10 @@ export default function RootLayout({
         <head>
           <script src="https://sdk.scdn.co/spotify-player.js" async></script>
         </head>
-        <body className={`${outfit.variable} font-sans antialiased`}>
+        <body
+          className={`${outfit.variable} font-sans antialiased`}
+          suppressHydrationWarning
+        >
           <ThemeProvider
             attribute="class"
             defaultTheme="system"
@@ -45,9 +47,7 @@ export default function RootLayout({
               {/* <OnekoCat /> */}
               <Quote />
               <Footer />
-              <ClientOnly>
-                <ChatBubble />
-              </ClientOnly>
+              <ChatBubble />
               {/* <UmamiAnalytics /> */}
             </ReactLenis>
           </ThemeProvider>

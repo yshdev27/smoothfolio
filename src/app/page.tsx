@@ -1,5 +1,4 @@
 import Container from "@/components/common/Container";
-import ClientOnly from "@/components/common/ClientOnly";
 import About from "@/components/landing/About";
 import Blog from "@/components/landing/Blog";
 import CTA from "@/components/landing/CTA";
@@ -18,9 +17,7 @@ export default function page() {
       <About />
       <Github />
       <Blog />
-      <ClientOnly>
-        <CTA />
-      </ClientOnly>
+      <CTA />
     </Container>
   );
 }
