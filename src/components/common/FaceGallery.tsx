@@ -1,6 +1,12 @@
 "use client";
 
-import { motion, AnimatePresence, useMotionValue, useTransform, PanInfo } from "framer-motion";
+import {
+  motion,
+  AnimatePresence,
+  useMotionValue,
+  useTransform,
+  PanInfo,
+} from "framer-motion";
 import Image from "next/image";
 import { useState } from "react";
 
@@ -34,7 +40,10 @@ export default function FaceGallery({ photos, profile }: FaceGalleryProps) {
     setActive(index);
   };
 
-  const handleDragEnd = (event: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) => {
+  const handleDragEnd = (
+    event: MouseEvent | TouchEvent | PointerEvent,
+    info: PanInfo,
+  ) => {
     const swipeThreshold = 50;
     if (info.offset.x > swipeThreshold && active > 0) {
       // Swipe right - go to previous
@@ -63,7 +72,7 @@ export default function FaceGallery({ photos, profile }: FaceGalleryProps) {
   return (
     <section className="mx-auto max-w-4xl space-y-4 px-4 py-6">
       {/* Hero Image */}
-      <motion.div 
+      <motion.div
         className="relative aspect-[3/4] w-full overflow-hidden rounded-none bg-neutral-900 md:rounded-xl"
         drag="x"
         dragConstraints={{ left: 0, right: 0 }}
@@ -97,11 +106,6 @@ export default function FaceGallery({ photos, profile }: FaceGalleryProps) {
             />
           </motion.div>
         </AnimatePresence>
-
-        {/* Image counter */}
-        <div className="absolute right-4 top-4 z-20 rounded-full bg-black/50 px-3 py-1 text-xs font-medium text-white backdrop-blur-sm">
-          {active + 1} / {photos.length}
-        </div>
       </motion.div>
 
       {/* Horizontal Scrolling Gallery */}
