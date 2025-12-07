@@ -36,7 +36,7 @@ export async function GET() {
     return NextResponse.json({
       message: "Send a message to your bot on Telegram, then refresh this page",
       updates: data.result,
-      chatIds: [...new Set(chatIds.filter((c) => c.chatId))],
+      chatIds: [...new Set(chatIds.filter((c: (typeof chatIds)[0]) => c.chatId))],
     });
   } catch (error) {
     console.error("Error:", error);
