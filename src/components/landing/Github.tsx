@@ -31,14 +31,14 @@ type GitHubContributionResponse = {
     | "FOURTH_QUARTILE";
 };
 
-// Helper function to filter contributions to past year
-function filterLastYear(contributions: ContributionItem[]): ContributionItem[] {
-  const oneYearAgo = new Date();
-  oneYearAgo.setFullYear(oneYearAgo.getFullYear() - 1);
+// Helper function to filter contributions to past 9 months
+function filterLastNineMonths(contributions: ContributionItem[]): ContributionItem[] {
+  const nineMonthsAgo = new Date();
+  nineMonthsAgo.setMonth(nineMonthsAgo.getMonth() - 9);
 
   return contributions.filter((item) => {
     const itemDate = new Date(item.date);
-    return itemDate >= oneYearAgo;
+    return itemDate >= nineMonthsAgo;
   });
 }
 
@@ -97,8 +97,8 @@ export default function Github() {
             );
             setTotalContributions(total);
 
-            // Filter to show only the past year
-            const filteredContributions = filterLastYear(validContributions);
+            // Filter to show only the past 9 months
+            const filteredContributions = filterLastNineMonths(validContributions);
             setContributions(filteredContributions);
           } else {
             setHasError(true);
