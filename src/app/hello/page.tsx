@@ -24,6 +24,10 @@ const PHOTOS = [
   { src: "/images/4.png", alt: "Photo 4" },
   { src: "/images/5.png", alt: "Photo 5" },
   { src: "/images/6.png", alt: "Photo 6" },
+  { src: "/images/1.png", alt: "Photo 7" },
+  { src: "/images/2.png", alt: "Photo 8" },
+  { src: "/images/3.png", alt: "Photo 9" },
+  { src: "/images/4.png", alt: "Photo 10" },
 ];
 
 export default function HelloPage() {
