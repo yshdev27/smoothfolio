@@ -1,7 +1,7 @@
-import { systemPrompt } from '@/config/ChatPrompt';
-import { createParser } from 'eventsource-parser';
-import { NextRequest, NextResponse } from 'next/server';
-import * as z from 'zod';
+import { systemPrompt } from "@/config/ChatPrompt";
+import { createParser } from "eventsource-parser";
+import { NextRequest, NextResponse } from "next/server";
+import * as z from "zod";
 
 const rateLimitStore = new Map<string, { count: number; resetTime: number }>();
 
@@ -13,7 +13,7 @@ const chatSchema = z.object({
   history: z
     .array(
       z.object({
-        role: z.enum(['user', 'model']),
+        role: z.enum(["user", "model"]),
         parts: z.array(z.object({ text: z.string() })),
       }),
     )
@@ -48,10 +48,10 @@ function sanitizeInput(input: string): string {
   let sanitized = input;
 
   injectionPatterns.forEach((pattern) => {
-    sanitized = sanitized.replace(pattern, '[REDACTED]');
+    sanitized = sanitized.replace(pattern, "[REDACTED]");
   });
 
-  sanitized = sanitized.trim().replace(/\s+/g, ' ');
+  sanitized = sanitized.trim().replace(/\s+/g, " ");
 
   if (sanitized.length > 2000) {
     sanitized = sanitized.substring(0, 2000);
@@ -61,12 +61,12 @@ function sanitizeInput(input: string): string {
 }
 
 function getClientIP(request: NextRequest): string {
-  const forwarded = request.headers.get('x-forwarded-for');
-  const realIP = request.headers.get('x-real-ip');
-  const cfConnectingIP = request.headers.get('cf-connecting-ip');
+  const forwarded = request.headers.get("x-forwarded-for");
+  const realIP = request.headers.get("x-real-ip");
+  const cfConnectingIP = request.headers.get("cf-connecting-ip");
 
   if (forwarded) {
-    return forwarded.split(',')[0].trim();
+    return forwarded.split(",")[0].trim();
   }
   if (realIP) {
     return realIP;
@@ -75,7 +75,7 @@ function getClientIP(request: NextRequest): string {
     return cfConnectingIP;
   }
 
-  return 'unknown';
+  return "unknown";
 }
 
 function checkRateLimit(clientIP: string): {
@@ -114,15 +114,15 @@ export async function POST(request: NextRequest) {
     if (!rateLimit.allowed) {
       return NextResponse.json(
         {
-          error: 'Too many requests. Please try again later.',
+          error: "Too many requests. Please try again later.",
           retryAfter: RATE_LIMIT_WINDOW / 1000,
         },
         {
           status: 429,
           headers: {
-            'X-RateLimit-Limit': RATE_LIMIT_MAX_REQUESTS.toString(),
-            'X-RateLimit-Remaining': rateLimit.remaining.toString(),
-            'X-RateLimit-Reset': (Date.now() + RATE_LIMIT_WINDOW).toString(),
+            "X-RateLimit-Limit": RATE_LIMIT_MAX_REQUESTS.toString(),
+            "X-RateLimit-Remaining": rateLimit.remaining.toString(),
+            "X-RateLimit-Reset": (Date.now() + RATE_LIMIT_WINDOW).toString(),
           },
         },
       );
@@ -130,9 +130,9 @@ export async function POST(request: NextRequest) {
 
     const apiKey = process.env.GEMINI_API_KEY;
     if (!apiKey) {
-      console.error('GEMINI_API_KEY not configured');
+      console.error("GEMINI_API_KEY not configured");
       return NextResponse.json(
-        { error: 'AI service not configured' },
+        { error: "AI service not configured" },
         { status: 500 },
       );
     }
@@ -145,26 +145,26 @@ export async function POST(request: NextRequest) {
       contents: [
         {
           parts: [{ text: systemPrompt }],
-          role: 'user',
+          role: "user",
         },
         {
           parts: [
-            { text: 'I understand. I will act as your portfolio assistant.' },
+            { text: "I understand. I will act as your portfolio assistant." },
           ],
-          role: 'model',
+          role: "model",
         },
         // Add conversation history
         ...validatedData.history.map((msg) => ({
           ...msg,
           parts: msg.parts.map((part) => ({
             ...part,
-            text: msg.role === 'user' ? sanitizeInput(part.text) : part.text,
+            text: msg.role === "user" ? sanitizeInput(part.text) : part.text,
           })),
         })),
         // Add current message
         {
           parts: [{ text: sanitizeInput(validatedData.message) }],
-          role: 'user',
+          role: "user",
         },
       ],
       generationConfig: {
@@ -178,16 +178,16 @@ export async function POST(request: NextRequest) {
     const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-exp:streamGenerateContent?alt=sse&key=${apiKey}`;
 
     const response = await fetch(geminiUrl, {
-      method: 'POST',
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify(requestBody),
     });
 
     if (!response.ok) {
       const errorText = await response.text();
-      console.error('Gemini API Error:', {
+      console.error("Gemini API Error:", {
         status: response.status,
         statusText: response.statusText,
         body: errorText,
@@ -195,15 +195,15 @@ export async function POST(request: NextRequest) {
 
       if (response.status === 429) {
         return NextResponse.json(
-          { error: 'Rate limit exceeded. Please wait a moment and try again.' },
-          { status: 429 }
+          { error: "Rate limit exceeded. Please wait a moment and try again." },
+          { status: 429 },
         );
       }
 
       if (response.status === 404) {
         return NextResponse.json(
-          { error: 'Invalid API configuration. Please check your API key.' },
-          { status: 500 }
+          { error: "Invalid API configuration. Please check your API key." },
+          { status: 500 },
         );
       }
 
@@ -226,13 +226,13 @@ export async function POST(request: NextRequest) {
                   controller.enqueue(encoder.encode(sseData));
                 }
               } catch (parseError) {
-                console.error('Parse error:', parseError);
+                console.error("Parse error:", parseError);
               }
             },
           });
 
           if (!response.body) {
-            throw new Error('No response body');
+            throw new Error("No response body");
           }
 
           const reader = response.body.getReader();
@@ -249,8 +249,8 @@ export async function POST(request: NextRequest) {
           controller.enqueue(encoder.encode('data: {"done": true}\n\n'));
           controller.close();
         } catch (error) {
-          console.error('Streaming error:', error);
-          const errorData = `data: ${JSON.stringify({ error: 'Stream error occurred' })}\n\n`;
+          console.error("Streaming error:", error);
+          const errorData = `data: ${JSON.stringify({ error: "Stream error occurred" })}\n\n`;
           controller.enqueue(encoder.encode(errorData));
           controller.close();
         }
@@ -260,21 +260,21 @@ export async function POST(request: NextRequest) {
     return new NextResponse(stream, {
       status: 200,
       headers: {
-        'Content-Type': 'text/event-stream',
-        'Cache-Control': 'no-cache',
-        Connection: 'keep-alive',
-        'Access-Control-Allow-Origin': '*',
-        'X-RateLimit-Limit': RATE_LIMIT_MAX_REQUESTS.toString(),
-        'X-RateLimit-Remaining': rateLimit.remaining.toString(),
+        "Content-Type": "text/event-stream",
+        "Cache-Control": "no-cache",
+        Connection: "keep-alive",
+        "Access-Control-Allow-Origin": "*",
+        "X-RateLimit-Limit": RATE_LIMIT_MAX_REQUESTS.toString(),
+        "X-RateLimit-Remaining": rateLimit.remaining.toString(),
       },
     });
   } catch (error) {
-    console.error('Chat API Error:', error);
+    console.error("Chat API Error:", error);
 
     if (error instanceof z.ZodError) {
       return NextResponse.json(
         {
-          error: 'Invalid request data',
+          error: "Invalid request data",
           details: error.errors,
         },
         { status: 400 },
@@ -282,12 +282,12 @@ export async function POST(request: NextRequest) {
     }
 
     return NextResponse.json(
-      { error: 'Internal server error' },
+      { error: "Internal server error" },
       { status: 500 },
     );
   }
 }
 
 export async function GET() {
-  return NextResponse.json({ error: 'Method not allowed' }, { status: 405 });
+  return NextResponse.json({ error: "Method not allowed" }, { status: 405 });
 }
