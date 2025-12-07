@@ -8,7 +8,7 @@ import {
   PanInfo,
 } from "framer-motion";
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 
 type Photo = {
   src: string;
@@ -30,10 +30,14 @@ interface FaceGalleryProps {
 export default function FaceGallery({ photos, profile }: FaceGalleryProps) {
   const [active, setActive] = useState(0);
   const [direction, setDirection] = useState(0);
+  const scrollRef = useRef<HTMLDivElement>(null);
 
   if (!photos || photos.length === 0) return null;
 
   const current = photos[active];
+
+  // Create triple array for seamless infinite loop
+  const infinitePhotos = [...photos, ...photos, ...photos];
 
   const handleSetActive = (index: number) => {
     setDirection(index > active ? 1 : -1);
@@ -53,6 +57,32 @@ export default function FaceGallery({ photos, profile }: FaceGalleryProps) {
       handleSetActive(active + 1);
     }
   };
+
+  // Handle infinite scroll loop
+  useEffect(() => {
+    const scrollContainer = scrollRef.current;
+    if (!scrollContainer) return;
+
+    const handleScroll = () => {
+      const { scrollLeft, scrollWidth, clientWidth } = scrollContainer;
+      const itemWidth = 92; // 80px width + 12px gap
+      const singleSetWidth = photos.length * itemWidth;
+
+      // Reset to middle set when reaching boundaries
+      if (scrollLeft <= itemWidth) {
+        scrollContainer.scrollLeft = singleSetWidth + itemWidth;
+      } else if (scrollLeft >= singleSetWidth * 2 - clientWidth) {
+        scrollContainer.scrollLeft = singleSetWidth - clientWidth + itemWidth;
+      }
+    };
+
+    scrollContainer.addEventListener("scroll", handleScroll);
+
+    // Initialize scroll to middle set
+    scrollContainer.scrollLeft = photos.length * 92;
+
+    return () => scrollContainer.removeEventListener("scroll", handleScroll);
+  }, [photos.length]);
 
   const slideVariants = {
     enter: {
@@ -116,8 +146,11 @@ export default function FaceGallery({ photos, profile }: FaceGalleryProps) {
         {/* Right fade */}
         <div className="pointer-events-none absolute right-0 top-0 z-10 h-full w-12 bg-gradient-to-l from-background to-transparent" />
 
-        <div className="flex gap-3 overflow-x-auto pb-2 scrollbar-hide">
-          {photos.concat(photos).map((photo, index) => {
+        <div
+          ref={scrollRef}
+          className="flex gap-3 overflow-x-auto pb-2 scrollbar-hide scroll-smooth"
+        >
+          {infinitePhotos.map((photo, index) => {
             const actualIndex = index % photos.length;
             const isActive = actualIndex === active;
 
