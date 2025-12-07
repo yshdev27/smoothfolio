@@ -77,7 +77,7 @@ export default function FaceGallery({ photos, profile }: FaceGalleryProps) {
         const singleSetWidth = photos.length * itemWidth;
 
         // Check if we need to reset position
-        if (scrollLeft < itemWidth * 3) {
+        if (scrollLeft < itemWidth * 4) {
           // Near start - jump to equivalent position in middle set
           isResetting = true;
           const targetScroll = scrollLeft + singleSetWidth;
@@ -88,7 +88,7 @@ export default function FaceGallery({ photos, profile }: FaceGalleryProps) {
           requestAnimationFrame(() => {
             isResetting = false;
           });
-        } else if (scrollLeft > singleSetWidth * 2 - itemWidth * 3) {
+        } else if (scrollLeft > singleSetWidth * 2 - itemWidth * 4) {
           // Near end - jump to equivalent position in middle set
           isResetting = true;
           const targetScroll = scrollLeft - singleSetWidth;
@@ -183,7 +183,7 @@ export default function FaceGallery({ photos, profile }: FaceGalleryProps) {
 
         <div
           ref={scrollRef}
-          className="flex gap-3 overflow-x-auto pb-2 scroll-smooth [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
+          className="flex gap-3 overflow-x-auto pb-2 scroll-smooth md:[&::-webkit-scrollbar]:block md:[-ms-overflow-style:auto] md:[scrollbar-width:auto] [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
         >
           {infinitePhotos.map((photo, index) => {
             const actualIndex = index % photos.length;
