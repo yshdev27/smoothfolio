@@ -1,6 +1,6 @@
 import Container from "@/components/common/Container";
 import SectionHeading from "@/components/common/SectionHeading";
-import ScrollingGallery from "@/components/common/ScrollingGallery";
+import FaceGallery from "@/components/common/FaceGallery";
 import { Cedarville_Cursive, Gochi_Hand } from "next/font/google";
 import Image from "next/image";
 import React from "react";
@@ -16,6 +16,15 @@ const cedarvilleCursive = Cedarville_Cursive({
   weight: "400",
   variable: "--font-cedarville",
 });
+
+const PHOTOS = [
+  { src: "/images/1.png", alt: "Photo 1" },
+  { src: "/images/2.png", alt: "Photo 2" },
+  { src: "/images/3.png", alt: "Photo 3" },
+  { src: "/images/4.png", alt: "Photo 4" },
+  { src: "/images/5.png", alt: "Photo 5" },
+  { src: "/images/6.png", alt: "Photo 6" },
+];
 
 export default function HelloPage() {
   return (
@@ -90,7 +99,7 @@ export default function HelloPage() {
 
         {/* Photo Gallery */}
         <div className="mt-20">
-          <ScrollingGallery />
+          <FaceGallery photos={PHOTOS} />
         </div>
       </div>
     </Container>
