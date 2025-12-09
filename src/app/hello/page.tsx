@@ -3,7 +3,7 @@
 import Container from "@/components/common/Container";
 import SectionHeading from "@/components/common/SectionHeading";
 import FaceGallery from "@/components/common/FaceGallery";
-import { Gochi_Hand } from "next/font/google";
+import { Gochi_Hand, Cedarville_Cursive } from "next/font/google";
 import Image from "next/image";
 import React from "react";
 
@@ -11,6 +11,12 @@ const gochiHand = Gochi_Hand({
   subsets: ["latin"],
   weight: "400",
   variable: "--font-gochi-hand",
+});
+
+const cedarvilleCursive = Cedarville_Cursive({
+  subsets: ["latin"],
+  weight: "400",
+  variable: "--font-cedarville",
 });
 
 const PHOTOS = [
@@ -70,7 +76,9 @@ export default function HelloPage() {
                   />
                 </div>
                 <div className="mt-4 text-center">
-                  <p className="text-base text-gray-700 dark:text-gray-800">
+                  <p
+                    className={`text-base text-gray-700 dark:text-gray-800 ${cedarvilleCursive.className}`}
+                  >
                     Creative workspace vibes
                   </p>
                 </div>
