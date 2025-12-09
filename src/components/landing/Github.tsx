@@ -31,8 +31,8 @@ type GitHubContributionResponse = {
     | "FOURTH_QUARTILE";
 };
 
-// Helper function to filter contributions to past 9 months
-function filterLastNineMonths(
+// Helper function to filter contributions to past 10 months
+function filterLastTenMonths(
   contributions: ContributionItem[],
 ): ContributionItem[] {
   const nineMonthsAgo = new Date();
@@ -99,9 +99,9 @@ export default function Github() {
             );
             setTotalContributions(total);
 
-            // Filter to show only the past 9 months
+            // Filter to show only the past 10 months
             const filteredContributions =
-              filterLastNineMonths(validContributions);
+              filterLastTenMonths(validContributions);
             setContributions(filteredContributions);
           } else {
             setHasError(true);
