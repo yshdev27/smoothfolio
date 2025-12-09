@@ -44,12 +44,12 @@ export default function HelloPage() {
             >
               Hi Bramhni
             </h2>
-            <p className="text-muted-foreground leading-relaxed">
+            <p className={`text-gray-900 dark:text-white leading-relaxed ${gochiHand.className}`}>
               We specialize in crafting beautiful and functional designs that
               bring your vision to life. Our team of experts works tirelessly to
               ensure every pixel is perfect and every interaction is delightful.
             </p>
-            <p className="text-muted-foreground leading-relaxed">
+            <p className={`text-gray-900 dark:text-white leading-relaxed ${gochiHand.className}`}>
               From concept to execution, we handle every aspect of the design
               process with precision and care. Our approach combines modern
               aesthetics with timeless principles to create experiences that
@@ -87,18 +87,13 @@ export default function HelloPage() {
 
         {/* Section 2 - Text Only */}
         <div className="max-w-3xl mx-auto space-y-4">
-          <h2
-            className={`text-3xl font-bold text-center bg-linear-to-br from-pink-600 via-pink-700 to-pink-800 bg-clip-text text-transparent bg-size-[200%_200%] animate-[gradient-flow_4s_ease-in-out_infinite] ${gochiHand.className}`}
-          >
-            Our Journey
-          </h2>
-          <p className="text-muted-foreground leading-relaxed">
+          <p className={`text-gray-900 dark:text-white leading-relaxed ${gochiHand.className}`}>
             Every project we undertake is a unique journey filled with
             creativity, collaboration, and innovation. We believe in creating
             meaningful experiences that not only meet expectations but exceed
             them in every way possible.
           </p>
-          <p className="text-muted-foreground leading-relaxed">
+          <p className={`text-gray-900 dark:text-white leading-relaxed ${gochiHand.className}`}>
             Through dedication and passion, we transform ideas into reality,
             bringing together design, technology, and human connection to craft
             solutions that truly make a difference.
