@@ -1,12 +1,6 @@
 "use client";
 
-import {
-  motion,
-  AnimatePresence,
-  useMotionValue,
-  useTransform,
-  PanInfo,
-} from "framer-motion";
+import { motion, AnimatePresence, PanInfo } from "framer-motion";
 import Image from "next/image";
 import { useState, useRef, useEffect } from "react";
 
@@ -27,7 +21,7 @@ interface FaceGalleryProps {
   profile?: ProfileInfo;
 }
 
-export default function FaceGallery({ photos, profile }: FaceGalleryProps) {
+export default function FaceGallery({ photos }: FaceGalleryProps) {
   const [active, setActive] = useState(0);
   const [direction, setDirection] = useState(0);
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -144,14 +138,14 @@ export default function FaceGallery({ photos, profile }: FaceGalleryProps) {
     <section className="mx-auto max-w-4xl space-y-8 px-4 py-6 md:space-y-4">
       {/* Hero Image */}
       <motion.div
-        className="relative aspect-[3/4] w-full overflow-hidden rounded-none bg-neutral-900 md:rounded-xl"
+        className="relative aspect-3/4 w-full overflow-hidden rounded-none bg-neutral-900 md:rounded-xl"
         drag="x"
         dragConstraints={{ left: 0, right: 0 }}
         dragElastic={0.2}
         onDragEnd={handleDragEnd}
       >
         {/* Gradient overlay for depth */}
-        <div className="pointer-events-none absolute inset-0 z-10 bg-gradient-to-b from-black/5 via-transparent to-black/10" />
+        <div className="pointer-events-none absolute inset-0 z-10 bg-linear-to-b from-black/5 via-transparent to-black/10" />
 
         <AnimatePresence initial={false} custom={direction} mode="popLayout">
           <motion.div
@@ -182,10 +176,10 @@ export default function FaceGallery({ photos, profile }: FaceGalleryProps) {
       {/* Horizontal Scrolling Gallery */}
       <div className="relative w-full overflow-hidden">
         {/* Left fade */}
-        <div className="pointer-events-none absolute left-0 top-0 z-10 h-full w-12 bg-gradient-to-r from-background to-transparent" />
+        <div className="pointer-events-none absolute left-0 top-0 z-10 h-full w-12 bg-linear-to-r from-background to-transparent" />
 
         {/* Right fade */}
-        <div className="pointer-events-none absolute right-0 top-0 z-10 h-full w-12 bg-gradient-to-l from-background to-transparent" />
+        <div className="pointer-events-none absolute right-0 top-0 z-10 h-full w-12 bg-linear-to-l from-background to-transparent" />
 
         <div
           ref={scrollRef}
