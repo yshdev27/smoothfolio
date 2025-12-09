@@ -1,25 +1,25 @@
-import { about } from './About';
-import { experiences } from './Experience';
-import { heroConfig, socialLinks } from './Hero';
-import { projects } from './Projects';
+import { about } from "./About";
+import { experiences } from "./Experience";
+import { heroConfig, socialLinks } from "./Hero";
+import { projects } from "./Projects";
 
 function generateSystemPrompt(): string {
-  const skillNames = heroConfig.skills.map((skill) => skill.name).join(', ');
+  const skillNames = heroConfig.skills.map((skill) => skill.name).join(", ");
   const socialLinksText = socialLinks
     .map((link) => `${link.name}: ${link.href}`)
-    .join('\n- ');
+    .join("\n- ");
   const experienceText = experiences
     .map(
       (exp) =>
         `${exp.position} at ${exp.company} (${exp.startDate} - ${exp.endDate})`,
     )
-    .join('\n- ');
+    .join("\n- ");
   const projectsText = projects
     .map(
       (project) =>
-        `${project.title}: ${project.description}${project.live ? ` - ${project.live}` : ''}`,
+        `${project.title}: ${project.description}${project.live ? ` - ${project.live}` : ""}`,
     )
-    .join('\n- ');
+    .join("\n- ");
 
   return `You are ${about.name}'s Portfolio Assistant representing ${about.name}.
 
@@ -56,7 +56,7 @@ Your goal: Help visitors learn about your work in a friendly, concise way.`;
 export const systemPrompt = generateSystemPrompt();
 
 export const chatSuggestions = [
-  'What technologies do you work with?',
-  'Tell me about your recent projects',
-  'How can I contact you for work?',
+  "What technologies do you work with?",
+  "Tell me about your recent projects",
+  "How can I contact you for work?",
 ];

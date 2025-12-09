@@ -187,7 +187,7 @@ export async function POST(request: NextRequest) {
 
     // --- Gemini endpoint (stable model, better for free tier) ---
     const geminiUrl =
-      "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-001:streamGenerateContent?alt=sse";
+      "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:streamGenerateContent?alt=sse";
 
     const response = await fetch(geminiUrl, {
       method: "POST",
@@ -228,7 +228,15 @@ export async function POST(request: NextRequest) {
               if (!event.data) return;
 
               // Sometimes there can be control messages; be defensive
-              let data: Record<string, any>;
+              let data: {
+                candidates?: Array<{
+                  content?: {
+                    parts?: Array<{
+                      text?: string;
+                    }>;
+                  };
+                }>;
+              };
               try {
                 data = JSON.parse(event.data);
               } catch {
