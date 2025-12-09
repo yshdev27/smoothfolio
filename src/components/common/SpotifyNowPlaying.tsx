@@ -47,34 +47,19 @@ export default function SpotifyNowPlaying() {
     };
 
     fetchNowPlaying();
-    // Refresh every 3 seconds for near real-time sync
-    const interval = setInterval(fetchNowPlaying, 3000);
+    // Refresh every 1 second for real-time sync
+    const interval = setInterval(fetchNowPlaying, 1000);
     return () => {
       isMounted = false;
       clearInterval(interval);
     };
   }, []);
 
-  // Real-time progress tracking
+  // Update progress from track data
   useEffect(() => {
-    if (!track || !track.isPlaying) {
-      setCurrentProgress(track?.progress || 0);
-      return;
+    if (track) {
+      setCurrentProgress(track.progress);
     }
-
-    // Set initial progress
-    setCurrentProgress(track.progress);
-
-    // Update progress every second when playing
-    const progressInterval = setInterval(() => {
-      setCurrentProgress((prev) => {
-        const next = prev + 1000;
-        // Stop at track duration
-        return next >= track.duration ? track.duration : next;
-      });
-    }, 1000);
-
-    return () => clearInterval(progressInterval);
   }, [track]);
 
   const formatTime = (ms: number) => {

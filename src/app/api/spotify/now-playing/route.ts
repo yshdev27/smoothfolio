@@ -119,7 +119,7 @@ export async function GET() {
 
     return NextResponse.json(track, {
       headers: {
-        "Cache-Control": "public, s-maxage=30, stale-while-revalidate=60",
+        "Cache-Control": "public, s-maxage=1, stale-while-revalidate=2",
       },
     });
   } catch (error) {
