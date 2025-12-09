@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState } from "react";
 
 interface SpotifyTrack {
   isPlaying: boolean;
@@ -16,109 +16,10 @@ interface SpotifyTrack {
   previewUrl: string | null;
 }
 
-interface ColorPalette {
-  primary: string;
-  secondary: string;
-  accent: string;
-  background: string;
-}
-
 export default function SpotifyNowPlaying() {
   const [track, setTrack] = useState<SpotifyTrack | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [currentProgress, setCurrentProgress] = useState(0);
-  const [colorPalette, setColorPalette] = useState<ColorPalette | null>(null);
-
-  // Extract dominant colors from album art
-  const extractColorsFromImage = useCallback(async (imageUrl: string): Promise<ColorPalette | null> => {
-    try {
-      const img = new Image();
-      img.crossOrigin = "anonymous";
-
-      return new Promise((resolve) => {
-        img.onload = () => {
-          const canvas = document.createElement("canvas");
-          const ctx = canvas.getContext("2d");
-          if (!ctx) {
-            resolve(null);
-            return;
-          }
-
-          canvas.width = img.width;
-          canvas.height = img.height;
-          ctx.drawImage(img, 0, 0);
-
-          const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-          const data = imageData.data;
-
-          // Sample pixels from different areas
-          const colors: Array<{ r: number; g: number; b: number; count: number }> = [];
-
-          // Sample center area and corners
-          const samplePoints = [
-            { x: Math.floor(canvas.width * 0.5), y: Math.floor(canvas.height * 0.5) }, // center
-            { x: Math.floor(canvas.width * 0.25), y: Math.floor(canvas.height * 0.25) }, // top-left
-            { x: Math.floor(canvas.width * 0.75), y: Math.floor(canvas.height * 0.25) }, // top-right
-            { x: Math.floor(canvas.width * 0.25), y: Math.floor(canvas.height * 0.75) }, // bottom-left
-            { x: Math.floor(canvas.width * 0.75), y: Math.floor(canvas.height * 0.75) }, // bottom-right
-          ];
-
-          samplePoints.forEach(({ x, y }) => {
-            const index = (y * canvas.width + x) * 4;
-            const r = data[index];
-            const g = data[index + 1];
-            const b = data[index + 2];
-
-            // Find similar color or add new one
-            const existingColor = colors.find(color =>
-              Math.abs(color.r - r) < 30 &&
-              Math.abs(color.g - g) < 30 &&
-              Math.abs(color.b - b) < 30
-            );
-
-            if (existingColor) {
-              existingColor.count++;
-            } else {
-              colors.push({ r, g, b, count: 1 });
-            }
-          });
-
-          // Sort by frequency and get top colors
-          colors.sort((a, b) => b.count - a.count);
-
-          if (colors.length === 0) {
-            resolve(null);
-            return;
-          }
-
-          // Create color palette
-          const primary = colors[0];
-          const secondary = colors[1] || colors[0];
-          const accent = colors[2] || colors[0];
-
-          // Calculate background color (darker/muted version of primary)
-          const bgR = Math.max(0, primary.r - 40);
-          const bgG = Math.max(0, primary.g - 40);
-          const bgB = Math.max(0, primary.b - 40);
-
-          const palette: ColorPalette = {
-            primary: `rgb(${primary.r}, ${primary.g}, ${primary.b})`,
-            secondary: `rgb(${secondary.r}, ${secondary.g}, ${secondary.b})`,
-            accent: `rgb(${accent.r}, ${accent.g}, ${accent.b})`,
-            background: `rgb(${bgR}, ${bgG}, ${bgB})`,
-          };
-
-          resolve(palette);
-        };
-
-        img.onerror = () => resolve(null);
-        img.src = imageUrl;
-      });
-    } catch (error) {
-      console.error("Error extracting colors:", error);
-      return null;
-    }
-  }, []);
 
   useEffect(() => {
     let isMounted = true;
@@ -134,14 +35,6 @@ export default function SpotifyNowPlaying() {
             // Reset progress if track changed
             if (prevTrack?.trackId !== data.trackId) {
               setCurrentProgress(data.progress);
-              // Extract colors from new album art
-              if (data.albumImageUrl) {
-                extractColorsFromImage(data.albumImageUrl).then((palette) => {
-                  if (palette && isMounted) {
-                    setColorPalette(palette);
-                  }
-                });
-              }
             }
             return data;
           });
@@ -154,19 +47,34 @@ export default function SpotifyNowPlaying() {
     };
 
     fetchNowPlaying();
-    // Refresh every 1 second for real-time sync
-    const interval = setInterval(fetchNowPlaying, 1000);
+    // Refresh every 3 seconds for near real-time sync
+    const interval = setInterval(fetchNowPlaying, 3000);
     return () => {
       isMounted = false;
       clearInterval(interval);
     };
   }, []);
 
-  // Update progress from track data
+  // Real-time progress tracking
   useEffect(() => {
-    if (track) {
-      setCurrentProgress(track.progress);
+    if (!track || !track.isPlaying) {
+      setCurrentProgress(track?.progress || 0);
+      return;
     }
+
+    // Set initial progress
+    setCurrentProgress(track.progress);
+
+    // Update progress every second when playing
+    const progressInterval = setInterval(() => {
+      setCurrentProgress((prev) => {
+        const next = prev + 1000;
+        // Stop at track duration
+        return next >= track.duration ? track.duration : next;
+      });
+    }, 1000);
+
+    return () => clearInterval(progressInterval);
   }, [track]);
 
   const formatTime = (ms: number) => {
@@ -195,20 +103,7 @@ export default function SpotifyNowPlaying() {
 
   return (
     <div className="mt-6">
-      <div
-        className="flex flex-col gap-3 text-sm p-3 rounded-lg shadow-inner transition-all duration-500 ease-in-out"
-        style={{
-          background: colorPalette
-            ? `linear-gradient(135deg, ${colorPalette.background}15, ${colorPalette.secondary}10, ${colorPalette.primary}08)`
-            : 'rgb(39 39 42 / 0.3)',
-          border: colorPalette
-            ? `1px solid ${colorPalette.primary}20`
-            : 'rgb(255 255 255 / 0.1)',
-          boxShadow: colorPalette
-            ? `inset 0 1px 0 ${colorPalette.primary}10, 0 4px 12px ${colorPalette.background}20`
-            : 'inset 0 1px 0 rgb(255 255 255 / 0.1), 0 4px 12px rgb(0 0 0 / 0.15)',
-        }}
-      >
+      <div className="flex flex-col gap-3 text-sm p-3 rounded-lg bg-muted/30 border border-border/50 shadow-inner">
         <div className="flex items-center gap-3 justify-between">
           <div className="flex items-center gap-3 flex-1 min-w-0">
             <div className="relative">
@@ -217,7 +112,7 @@ export default function SpotifyNowPlaying() {
                 width={48}
                 height={48}
                 className={`rounded-full shadow-inner ring-1 ring-black/10 dark:ring-white/10 transition-all duration-300 ${
-                  track.isPlaying ? "animate-album-rotate" : ""
+                  track.isPlaying ? "animate-spin animation-duration:[9s]" : ""
                 }`}
                 src={track.albumImageUrl}
                 unoptimized
