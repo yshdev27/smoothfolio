@@ -24,39 +24,8 @@ interface FaceGalleryProps {
 export default function FaceGallery({ photos }: FaceGalleryProps) {
   const [active, setActive] = useState(0);
   const [direction, setDirection] = useState(0);
+  const [mounted] = useState(true);
   const scrollRef = useRef<HTMLDivElement>(null);
-
-  if (!photos || photos.length === 0) return null;
-
-  const current = photos[active];
-
-  // Create larger array for smoother infinite loop
-  const infinitePhotos = [
-    ...photos,
-    ...photos,
-    ...photos,
-    ...photos,
-    ...photos,
-  ];
-
-  const handleSetActive = (index: number) => {
-    setDirection(index > active ? 1 : -1);
-    setActive(index);
-  };
-
-  const handleDragEnd = (
-    event: MouseEvent | TouchEvent | PointerEvent,
-    info: PanInfo,
-  ) => {
-    const swipeThreshold = 50;
-    if (info.offset.x > swipeThreshold && active > 0) {
-      // Swipe right - go to previous
-      handleSetActive(active - 1);
-    } else if (info.offset.x < -swipeThreshold && active < photos.length - 1) {
-      // Swipe left - go to next
-      handleSetActive(active + 1);
-    }
-  };
 
   // Handle infinite scroll loop
   useEffect(() => {
@@ -105,19 +74,53 @@ export default function FaceGallery({ photos }: FaceGalleryProps) {
 
     scrollContainer.addEventListener("scroll", handleScroll, { passive: true });
 
-    // Initialize scroll to center set (set 2 of 5)
-    requestAnimationFrame(() => {
-      scrollContainer.scrollTo({
-        left: photos.length * 92 * 2,
-        behavior: "instant" as ScrollBehavior,
+    // Initialize scroll to center set (set 2 of 5) - only after component mounts
+    if (mounted) {
+      requestAnimationFrame(() => {
+        scrollContainer.scrollTo({
+          left: photos.length * 92 * 2,
+          behavior: "instant" as ScrollBehavior,
+        });
       });
-    });
+    }
 
     return () => {
       scrollContainer.removeEventListener("scroll", handleScroll);
       clearTimeout(scrollTimeout);
     };
-  }, [photos.length]);
+  }, [photos.length, mounted]);
+
+  if (!photos || photos.length === 0) return null;
+
+  const current = photos[active];
+
+  // Create larger array for smoother infinite loop
+  const infinitePhotos = [
+    ...photos,
+    ...photos,
+    ...photos,
+    ...photos,
+    ...photos,
+  ];
+
+  const handleSetActive = (index: number) => {
+    setDirection(index > active ? 1 : -1);
+    setActive(index);
+  };
+
+  const handleDragEnd = (
+    event: MouseEvent | TouchEvent | PointerEvent,
+    info: PanInfo,
+  ) => {
+    const swipeThreshold = 50;
+    if (info.offset.x > swipeThreshold && active > 0) {
+      // Swipe right - go to previous
+      handleSetActive(active - 1);
+    } else if (info.offset.x < -swipeThreshold && active < photos.length - 1) {
+      // Swipe left - go to next
+      handleSetActive(active + 1);
+    }
+  };
 
   const slideVariants = {
     enter: {

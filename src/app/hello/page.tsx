@@ -1,7 +1,9 @@
+"use client";
+
 import Container from "@/components/common/Container";
 import SectionHeading from "@/components/common/SectionHeading";
 import FaceGallery from "@/components/common/FaceGallery";
-import { Cedarville_Cursive, Gochi_Hand } from "next/font/google";
+import { Gochi_Hand } from "next/font/google";
 import Image from "next/image";
 import React from "react";
 
@@ -11,23 +13,17 @@ const gochiHand = Gochi_Hand({
   variable: "--font-gochi-hand",
 });
 
-const cedarvilleCursive = Cedarville_Cursive({
-  subsets: ["latin"],
-  weight: "400",
-  variable: "--font-cedarville",
-});
-
 const PHOTOS = [
-  { src: "/images/1.png", alt: "Photo 1" },
-  { src: "/images/2.png", alt: "Photo 2" },
-  { src: "/images/3.png", alt: "Photo 3" },
-  { src: "/images/4.png", alt: "Photo 4" },
-  { src: "/images/5.png", alt: "Photo 5" },
-  { src: "/images/6.png", alt: "Photo 6" },
-  { src: "/images/1.png", alt: "Photo 7" },
-  { src: "/images/2.png", alt: "Photo 8" },
-  { src: "/images/3.png", alt: "Photo 9" },
-  { src: "/images/4.png", alt: "Photo 10" },
+  { src: "/images/0.jpg", alt: "Photo 1" },
+  { src: "/images/1.jpg", alt: "Photo 2" },
+  { src: "/images/3.jpg", alt: "Photo 3" },
+  { src: "/images/4.jpg", alt: "Photo 4" },
+  { src: "/images/5.jpg", alt: "Photo 5" },
+  { src: "/images/6.jpg", alt: "Photo 6" },
+  { src: "/images/7.jpg", alt: "Photo 7" },
+  { src: "/images/0.jpg", alt: "Photo 8" },
+  { src: "/images/1.jpg", alt: "Photo 9" },
+  { src: "/images/3.jpg", alt: "Photo 10" },
 ];
 
 export default function HelloPage() {
@@ -39,8 +35,10 @@ export default function HelloPage() {
         {/* Section 1 - Content Left, Image Right */}
         <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12">
           <div className="flex-1 space-y-4">
-            <h2 className={`text-3xl font-bold ${gochiHand.className}`}>
-              Creative Design Solutions
+            <h2
+              className={`text-3xl font-bold bg-linear-to-br from-pink-600 via-pink-700 to-pink-800 bg-clip-text text-transparent bg-size-[200%_200%] animate-[gradient-flow_4s_ease-in-out_infinite] ${gochiHand.className}`}
+            >
+              Hi Bramhni
             </h2>
             <p className="text-muted-foreground leading-relaxed">
               We specialize in crafting beautiful and functional designs that
@@ -65,16 +63,14 @@ export default function HelloPage() {
               >
                 <div className="relative aspect-square w-full overflow-hidden">
                   <Image
-                    src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=800&h=800&fit=crop"
+                    src="/images/2.jpg"
                     alt="Creative workspace"
                     fill
                     className="object-cover"
                   />
                 </div>
                 <div className="mt-4 text-center">
-                  <p
-                    className={`text-base text-gray-700 dark:text-gray-800 ${cedarvilleCursive.className}`}
-                  >
+                  <p className="text-base text-gray-700 dark:text-gray-800">
                     Creative workspace vibes
                   </p>
                 </div>
@@ -84,8 +80,10 @@ export default function HelloPage() {
         </div>
 
         {/* Section 2 - Text Only */}
-        <div className="max-w-3xl mx-auto text-center space-y-4">
-          <h2 className={`text-3xl font-bold ${gochiHand.className}`}>
+        <div className="max-w-3xl mx-auto space-y-4">
+          <h2
+            className={`text-3xl font-bold text-center bg-linear-to-br from-pink-600 via-pink-700 to-pink-800 bg-clip-text text-transparent bg-size-[200%_200%] animate-[gradient-flow_4s_ease-in-out_infinite] ${gochiHand.className}`}
+          >
             Our Journey
           </h2>
           <p className="text-muted-foreground leading-relaxed">
@@ -109,7 +107,7 @@ export default function HelloPage() {
               name: "Yash",
               username: "g.yash27",
               bio: "Can't think of anything funny to put here.",
-              profilePic: "/images/1.png",
+              profilePic: "/images/0.jpg",
             }}
           />
         </div>
