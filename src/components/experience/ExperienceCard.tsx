@@ -29,15 +29,6 @@ export function ExperienceCard({
 }: ExperienceCardProps) {
   const [isExpanded, setIsExpanded] = useState(isFirst);
 
-  console.log(
-    "ExperienceCard:",
-    experience.company,
-    "isFirst:",
-    isFirst,
-    "isExpanded:",
-    isExpanded,
-  );
-
   return (
     <div className="flex flex-col gap-4">
       {/* Company Header - Clickable */}

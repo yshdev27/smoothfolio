@@ -53,7 +53,6 @@ export default function CTA({
   }, []);
 
   const handleButtonClick = () => {
-    console.log("Opening Cal with link:", calLink); // Debug log
     if (isMobile()) {
       triggerHaptic("medium");
     }

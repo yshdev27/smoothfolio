@@ -98,14 +98,12 @@ export function useSpotifyPlayer() {
 
       spotifyPlayer.addListener("ready", (data) => {
         const { device_id } = data as { device_id: string };
-        console.log("Ready with Device ID", device_id);
         setDeviceId(device_id);
         setIsReady(true);
       });
 
       spotifyPlayer.addListener("not_ready", (data) => {
         const { device_id } = data as { device_id: string };
-        console.log("Device ID has gone offline", device_id);
         setIsReady(false);
       });
 

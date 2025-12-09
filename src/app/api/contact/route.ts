@@ -71,13 +71,6 @@ async function sendToTelegram(data: {
   const telegramToken = process.env.TELEGRAM_BOT_TOKEN;
   const telegramChatId = process.env.TELEGRAM_CHAT_ID;
 
-  console.log("Telegram config:", {
-    hasToken: !!telegramToken,
-    tokenLength: telegramToken?.length,
-    hasChatId: !!telegramChatId,
-    chatId: telegramChatId,
-  });
-
   if (!telegramToken) {
     console.error("TELEGRAM_BOT_TOKEN not configured");
     return false;
@@ -118,7 +111,6 @@ ${data.message.trim()}
     });
 
     if (response.ok) {
-      console.log("Message sent to Telegram successfully!");
       return true;
     } else {
       const errorText = await response.text();
