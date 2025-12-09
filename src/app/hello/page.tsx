@@ -71,7 +71,7 @@ export default function HelloPage() {
               >
                 <div className="relative aspect-square w-full overflow-hidden">
                   <Image
-                    src="/images/2.jpg"
+                    src="/images/9.jpg"
                     alt="Creative workspace"
                     fill
                     className="object-cover"
