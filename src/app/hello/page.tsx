@@ -51,7 +51,7 @@ export default function HelloPage() {
               but if you thought i was gone(for good) not really. that’s not i
               move. infact i was travelling for work(and more) a bit and trying
               to build all this(the site where you’re seeing this) stuff in
-              between.
+              between.I promise, I won&apos;t be late ever again.
             </p>
             <p
               className={`text-gray-900 dark:text-white leading-relaxed ${gochiHand.className}`}
@@ -84,7 +84,7 @@ export default function HelloPage() {
                   <p
                     className={`text-base text-gray-700 dark:text-gray-800 ${cedarvilleCursive.className}`}
                   >
-                    Exhausted af but sun☀️ could help
+                    Sun-shine always helps
                   </p>
                 </div>
               </div>
@@ -106,11 +106,10 @@ export default function HelloPage() {
             className={`text-gray-900 dark:text-white leading-relaxed ${gochiHand.className}`}
           >
             I think you’re cool and a lil bit reserved and I got 0 idea about
-            you from your socials and I wanted to get to know you. now, I’m more
-            than what a lot of people can handle but if you’re the exception
-            like you said earlier that you are, I’m down. (I’ll do the
-            professional portfolio as well as I promised, I don’t forget
-            anything)
+            you from your socials and I want to know more. now, I’m more than
+            what a lot of people can handle but if you’re the exception like you
+            said earlier that you are, I’m down. (I’ll do the professional
+            portfolio as well as I promised, I don’t forget anything)
           </p>
           <p
             className={`text-gray-900 dark:text-white leading-relaxed ${gochiHand.className}`}
