@@ -45,7 +45,7 @@ export const experiences: Experience[] = [
   {
     isCurrent: true,
     company: "Yahata Studio",
-    position: "Frontend/UI Engineer",
+    position: "Lead Frontend/UI Engineer",
     location: "Pune (Remote)",
     image: "/company/yahata.jpg",
     description: [
