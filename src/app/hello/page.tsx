@@ -108,10 +108,11 @@ export default function HelloPage() {
             className={`text-gray-900 dark:text-white leading-relaxed ${gochiHand.className}`}
           >
             I think you’re cool but I&apos;ve got very less idea about you from
-            your socials(your friends say you&apos;re the prettiest girl ever
-            and i concur) and I want to know more. now, I’m a lot to handle for
-            most but if you’re the exception like you said you are, I’m down.
-            (I’ll do the professional portfolio as I promised, I didn’t forget)
+            your socials(your friends cheer you like you&apos;re the prettiest
+            girl ever and i agree) but I want to know more. now, I’m a lot to
+            handle for most but if you’re the exception like you said you are,
+            I’m down. (I’ll do the professional portfolio as I promised, I
+            didn’t forget)
           </p>
           <p
             className={`text-gray-900 dark:text-white leading-relaxed ${gochiHand.className}`}
