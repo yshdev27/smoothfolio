@@ -13,7 +13,7 @@ export default function Navbar() {
           <div className="flex items-center justify-center gap-4">
             {navbarConfig.navItems.map((item) => (
               <Link
-                className="text-xs font-medium transition-all duration-300 ease-in-out hover:underline hover:decoration-2 hover:underline-offset-4 md:text-base"
+                className="text-sm font-medium transition-all duration-300 ease-in-out hover:underline hover:decoration-2 hover:underline-offset-4 md:text-base"
                 key={item.label}
                 href={item.href}
               >
