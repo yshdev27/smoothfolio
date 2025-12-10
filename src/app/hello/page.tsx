@@ -97,19 +97,21 @@ export default function HelloPage() {
           <p
             className={`text-gray-900 dark:text-white leading-relaxed ${gochiHand.className}`}
           >
-            enough about me, but about you now. I’ve always wondered what sun
-            would look like as a human being and I think I finally have the
-            answer but this sun has reading and memory problems (I not sure if
-            doctors could afford that) but stay for 30 seconds more.
+            enough about me, but about you now. I was thinking a lot of creative
+            things I would write here but I can be nothing but honest, I’ve
+            always wondered what sun would look like as a human being and I
+            think I finally have the answer but this sun has reading and memory
+            problems (I not sure if doctors could afford that) but stay for 30
+            seconds more.
           </p>
           <p
             className={`text-gray-900 dark:text-white leading-relaxed ${gochiHand.className}`}
           >
-            I think you’re cool and a lil bit reserved and I got 0 idea about
-            you from your socials and I want to know more. now, I’m more than
-            what a lot of people can handle but if you’re the exception like you
-            said earlier that you are, I’m down. (I’ll do the professional
-            portfolio as well as I promised, I don’t forget anything)
+            I think you’re cool but I&apos;ve got very less idea about you from
+            your socials(your friends say you&apos;re the prettiest girl ever
+            and i concur) and I want to know more. now, I’m a lot to handle for
+            most but if you’re the exception like you said you are, I’m down.
+            (I’ll do the professional portfolio as I promised, I didn’t forget)
           </p>
           <p
             className={`text-gray-900 dark:text-white leading-relaxed ${gochiHand.className}`}
