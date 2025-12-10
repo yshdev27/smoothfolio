@@ -50,7 +50,7 @@ export default function HelloPage() {
               oh hey, i am really sorry for MIA and i hated to keep you hanging
               but if you thought i was gone(for good) not really. that’s not i
               move. infact i was travelling for work(and more) a bit and trying
-              to build all this(the site where you’re seeing this) stuff in
+              to build all this (the site where you’re seeing this) stuff in
               between.I promise, I won&apos;t be late ever again.
             </p>
             <p
@@ -58,9 +58,9 @@ export default function HelloPage() {
             >
               I didn&apos;t want to disappoint you again with no pictures of
               mine so had to have some casual direct ones from the camera that
-              are here. I&apos;m really awkward on the camera and i know
-              that(maybe I&apos;ll have to learn this from you). but i moved
-              anyway for few clicks last week.
+              are here. I&apos;m really awkward on the camera and i know that
+              (maybe I&apos;ll have to learn this from you). but i moved anyway
+              for few clicks last week.
             </p>
           </div>
           <div className="flex-1 w-full">
@@ -108,12 +108,12 @@ export default function HelloPage() {
             className={`text-gray-900 dark:text-white leading-relaxed ${gochiHand.className}`}
           >
             I think you’re cool but I&apos;ve got very less idea about you from
-            your socials(i see your friends cheering you in comments, now
+            your socials (i see your friends cheering you in comments, now
             I&apos;m curious to know- do you pay them, blackmail them or
-            you&apos;re this good? i&apos;m really curious) and ofcourse I want
-            to know more. now, I’m a lot to handle for most but if you’re the
-            exception like you said you are, I’m down. (I’ll do the professional
-            portfolio as I promised, I didn’t forget)
+            you&apos;re this good?) and ofcourse I want to know more. now, I’m a
+            lot to handle for most but if you’re the exception like you said you
+            are, I’m down. (I’ll do the professional portfolio as I promised, I
+            didn’t forget)
           </p>
           <p
             className={`text-gray-900 dark:text-white leading-relaxed ${gochiHand.className}`}
