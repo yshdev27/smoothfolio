@@ -112,8 +112,9 @@ export default function SpotifyNowPlaying() {
                 width={48}
                 height={48}
                 className={`rounded-full shadow-inner ring-1 ring-black/10 dark:ring-white/10 transition-all duration-300 ${
-                  track.isPlaying ? "animate-spin duration-[9000ms]" : ""
+                  track.isPlaying ? "animate-spin" : ""
                 }`}
+                style={track.isPlaying ? { animationDuration: "9s" } : {}}
                 src={track.albumImageUrl}
                 unoptimized
               />
