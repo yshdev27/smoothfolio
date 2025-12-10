@@ -47,17 +47,20 @@ export default function HelloPage() {
             <p
               className={`text-gray-900 dark:text-white leading-relaxed ${gochiHand.className}`}
             >
-              We specialize in crafting beautiful and functional designs that
-              bring your vision to life. Our team of experts works tirelessly to
-              ensure every pixel is perfect and every interaction is delightful.
+              oh hey, i am really sorry for MIA and i hated to keep you hanging
+              but if you thought i was gone(for good) not really. that’s not i
+              move. actually i was travelling for work(and more) a bit and
+              trying to build all this(the site where you’re seeing this) stuff
+              in between.
             </p>
             <p
               className={`text-gray-900 dark:text-white leading-relaxed ${gochiHand.className}`}
             >
-              From concept to execution, we handle every aspect of the design
-              process with precision and care. Our approach combines modern
-              aesthetics with timeless principles to create experiences that
-              resonate with your audience.
+              I didn&apos;t want to disappoint you again with no pictures of
+              mine so had to have some casual direct ones from the camera that
+              are here. I&apos;m really awkward on the camera and i know
+              that(maybe I&apos;ll have to learn this from you). but i moved
+              anyway for few clicks last week.
             </p>
           </div>
           <div className="flex-1 w-full">
@@ -81,7 +84,7 @@ export default function HelloPage() {
                   <p
                     className={`text-base text-gray-700 dark:text-gray-800 ${cedarvilleCursive.className}`}
                   >
-                    Creative workspace vibes
+                    Wishing to catch a sun ☀️
                   </p>
                 </div>
               </div>
@@ -94,17 +97,25 @@ export default function HelloPage() {
           <p
             className={`text-gray-900 dark:text-white leading-relaxed ${gochiHand.className}`}
           >
-            Every project we undertake is a unique journey filled with
-            creativity, collaboration, and innovation. We believe in creating
-            meaningful experiences that not only meet expectations but exceed
-            them in every way possible.
+            enough about me, but about you now. I’ve always wondered what sun
+            would look like as a human being and I think I finally have the
+            answer but this sun has reading and memory problems (I not sure if
+            doctors could afford that) but stay for 30 seconds more.
           </p>
           <p
             className={`text-gray-900 dark:text-white leading-relaxed ${gochiHand.className}`}
           >
-            Through dedication and passion, we transform ideas into reality,
-            bringing together design, technology, and human connection to craft
-            solutions that truly make a difference.
+            I think you’re cool and a lil bit reserved and I got 0 idea about
+            you from your socials and I wanted to get to know you. now, I’m more
+            than what a lot of people can handle but if you’re the exception
+            like you said earlier that you are, I’m down. (I’ll do the
+            professional portfolio as well as I promised, I don’t forget
+            anything)
+          </p>
+          <p
+            className={`text-gray-900 dark:text-white leading-relaxed ${gochiHand.className}`}
+          >
+            enough, ciao
           </p>
         </div>
 
