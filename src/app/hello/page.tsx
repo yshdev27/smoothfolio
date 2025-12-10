@@ -33,7 +33,7 @@ const PHOTOS = [
 export default function HelloPage() {
   return (
     <Container className="min-h-screen py-16">
-      <SectionHeading subHeading="Hidden Page" heading="Hello" />
+      <SectionHeading subHeading="" heading="" />
 
       <div className="mt-12 space-y-20">
         {/* Section 1 - Content Left, Image Right */}
@@ -49,9 +49,9 @@ export default function HelloPage() {
             >
               oh hey, i am really sorry for MIA and i hated to keep you hanging
               but if you thought i was gone(for good) not really. that’s not i
-              move. actually i was travelling for work(and more) a bit and
-              trying to build all this(the site where you’re seeing this) stuff
-              in between.
+              move. infact i was travelling for work(and more) a bit and trying
+              to build all this(the site where you’re seeing this) stuff in
+              between.
             </p>
             <p
               className={`text-gray-900 dark:text-white leading-relaxed ${gochiHand.className}`}
@@ -84,7 +84,7 @@ export default function HelloPage() {
                   <p
                     className={`text-base text-gray-700 dark:text-gray-800 ${cedarvilleCursive.className}`}
                   >
-                    Wishing to catch a sun ☀️
+                    Exhausted af but sun☀️ could help
                   </p>
                 </div>
               </div>
