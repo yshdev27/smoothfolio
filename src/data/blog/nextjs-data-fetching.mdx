@@ -1,9 +1,9 @@
 ---
-title: 'Next.JS Data Fetching mistakes & Security vulnerabilities'
-description: 'A guide to Next.js data fetching mistakes & security vulnerabilities'
-image: '/blog/nextjs-data-fetching.png'
-tags: ['frontend', 'development', 'nextjs']
-date: '2025-07-05'
+title: "Next.JS Data Fetching mistakes & Security vulnerabilities"
+description: "A guide to Next.js data fetching mistakes & security vulnerabilities"
+image: "/blog/Untitled-1.png"
+tags: ["frontend", "development", "nextjs"]
+date: "2025-10-05"
 isPublished: true
 ---
 
@@ -40,7 +40,7 @@ Here's what the typical (but problematic) implementation looks like:
 
 ```ts
 // page.tsx
-'use client';
+"use client";
 
 export default function Home() {
   const [todos, setTodos] = useState([]);
@@ -55,7 +55,7 @@ export default function Home() {
 
 ```ts
 // actions.ts
-'use server';
+"use server";
 
 export async function getTodos() {
   const todos = await prisma.todo.findMany();
@@ -121,7 +121,7 @@ export default function Home() {
 
 ```typescript
 // components/todo-form.tsx (Client Component)
-'use client';
+"use client";
 
 export default function TodoForm() {
   // Form logic with client-side validation
@@ -205,16 +205,16 @@ Here's the implementation:
 
 ```typescript
 // app/data/user/require-user.ts
-import { redirect } from 'next/navigation';
-import { cache } from 'react';
-import 'server-only';
+import { redirect } from "next/navigation";
+import { cache } from "react";
+import "server-only";
 
 export const requireUser = cache(async () => {
   const { getUser } = getServerSession();
   const user = await getUser();
 
   if (!user) {
-    redirect('/api/auth/login');
+    redirect("/api/auth/login");
   }
 
   return user;
@@ -223,10 +223,10 @@ export const requireUser = cache(async () => {
 
 ```typescript
 // app/data/todo/get-todos.ts
-import prisma from '@/lib/prisma';
-import 'server-only';
+import prisma from "@/lib/prisma";
+import "server-only";
 
-import { requireUser } from '../user/require-user';
+import { requireUser } from "../user/require-user";
 
 export async function getTodos() {
   await requireUser(); // Verify session before fetching data
@@ -297,7 +297,7 @@ The cache is scoped to a single server-side render and doesn't persist between p
 Add the `server-only` package to prevent accidental client-side usage:
 
 ```typescript
-import 'server-only';
+import "server-only";
 
 // This import ensures the function only runs on the server
 // and throws a build-time error if imported in client components

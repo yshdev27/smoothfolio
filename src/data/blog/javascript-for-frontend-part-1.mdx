@@ -1,9 +1,9 @@
 ---
 title: "JavaScript for Frontend Development: A Beginner's Guide"
-description: 'A guide to JavaScript for frontend development for beginners part 1'
-image: '/blog/javascript-part-1.png'
-tags: ['frontend', 'development', 'javascript']
-date: '2025-04-13'
+description: "A guide to JavaScript for frontend development for beginners part 1"
+image: "/blog/Untitled-2.png"
+tags: ["frontend", "development", "javascript"]
+date: "2025-11-13"
 isPublished: true
 ---
 
@@ -35,7 +35,7 @@ Let's start with some basics:
 // This is a comment - the computer ignores this text
 
 // Printing to the console
-console.log('Hello, World!');
+console.log("Hello, World!");
 
 // Basic math operations
 console.log(5 + 10); // Output: 15
@@ -52,18 +52,18 @@ Variables are like containers that store information. In JavaScript, we have sev
 
 ```javascript
 // Declaring variables
-let name = 'Sarah'; // Use let when the value might change later
+let name = "Sarah"; // Use let when the value might change later
 const age = 25; // Use const when the value won't change
-var oldWay = 'outdated'; // Older way of declaring variables (best avoided now)
+var oldWay = "outdated"; // Older way of declaring variables (best avoided now)
 
 // Basic data types
-const myString = 'Hello'; // Text (string)
+const myString = "Hello"; // Text (string)
 const myNumber = 42; // Number
 const isAwesome = true; // Boolean (true/false)
 const nothing = null; // Explicitly nothing
 const notDefined = undefined; // Value not assigned
 const myArray = [1, 2, 3]; // Array (collection of values)
-const myObject = { name: 'Book' }; // Object (collection of key-value pairs)
+const myObject = { name: "Book" }; // Object (collection of key-value pairs)
 ```
 
 Always try to use `const` when possible, and `let` when you need to change the value later. This makes your code more predictable!
@@ -75,11 +75,11 @@ Functions are reusable blocks of code. Think of them as little machines that do 
 ```javascript
 // Basic function declaration
 function sayHello(name) {
-  return 'Hello, ' + name + '!';
+  return "Hello, " + name + "!";
 }
 
 // Using the function
-console.log(sayHello('Alex')); // Output: "Hello, Alex!"
+console.log(sayHello("Alex")); // Output: "Hello, Alex!"
 
 // Function that adds two numbers
 function add(a, b) {
@@ -114,7 +114,7 @@ console.log(add(3, 5)); // Output: 8
 
 // For multiple lines, use curly braces and 'return'
 const greet = (name) => {
-  const message = 'Hello, ' + name + '!';
+  const message = "Hello, " + name + "!";
   return message;
 };
 ```
@@ -131,14 +131,14 @@ Arrays are ordered collections of values:
 
 ```javascript
 // Creating an array
-const fruits = ['apple', 'banana', 'orange'];
+const fruits = ["apple", "banana", "orange"];
 
 // Accessing items (starting from zero)
 console.log(fruits[0]); // Output: "apple"
 console.log(fruits[1]); // Output: "banana"
 
 // Adding to the end of an array
-fruits.push('mango');
+fruits.push("mango");
 console.log(fruits); // Output: ["apple", "banana", "orange", "mango"]
 
 // Common array methods
@@ -160,18 +160,18 @@ Objects store data in key-value pairs:
 ```javascript
 // Creating an object
 const person = {
-  name: 'Emma',
+  name: "Emma",
   age: 28,
-  city: 'Berlin',
-  hobbies: ['reading', 'hiking'],
+  city: "Berlin",
+  hobbies: ["reading", "hiking"],
 };
 
 // Accessing properties
 console.log(person.name); // Output: "Emma"
-console.log(person['age']); // Output: 28 (alternative way)
+console.log(person["age"]); // Output: 28 (alternative way)
 
 // Adding or changing properties
-person.job = 'Developer';
+person.job = "Developer";
 person.age = 29;
 
 console.log(person);
@@ -187,7 +187,7 @@ Destructuring is a convenient way to extract values from arrays or objects:
 ### Array Destructuring
 
 ```javascript
-const colors = ['red', 'green', 'blue'];
+const colors = ["red", "green", "blue"];
 
 // Without destructuring
 const firstColor = colors[0];
@@ -246,12 +246,12 @@ Destructuring makes your code cleaner and more readable, especially when working
 Template literals are a better way to work with strings in JavaScript:
 
 ```javascript
-const name = 'Maria';
+const name = "Maria";
 const age = 30;
 
 // Old way of combining strings
 const greeting1 =
-  'Hello, my name is ' + name + ' and I am ' + age + ' years old.';
+  "Hello, my name is " + name + " and I am " + age + " years old.";
 
 // Using template literals
 const greeting2 = `Hello, my name is ${name} and I am ${age} years old.`;
@@ -290,22 +290,22 @@ const age = 20;
 
 // Basic if statement
 if (age >= 18) {
-  console.log('You are an adult');
+  console.log("You are an adult");
 } else {
-  console.log('You are not an adult yet');
+  console.log("You are not an adult yet");
 }
 
 // Multiple conditions
 const score = 85;
 
 if (score >= 90) {
-  console.log('Grade: A');
+  console.log("Grade: A");
 } else if (score >= 80) {
-  console.log('Grade: B');
+  console.log("Grade: B");
 } else if (score >= 70) {
-  console.log('Grade: C');
+  console.log("Grade: C");
 } else {
-  console.log('Grade: F');
+  console.log("Grade: F");
 }
 
 // Logical operators
@@ -313,14 +313,14 @@ const isRegistered = true;
 const hasConfirmedEmail = true;
 
 if (isRegistered && hasConfirmedEmail) {
-  console.log('Welcome!');
+  console.log("Welcome!");
 }
 
 const isMember = false;
 const hasFreeTrial = true;
 
 if (isMember || hasFreeTrial) {
-  console.log('You can access this content');
+  console.log("You can access this content");
 }
 ```
 
@@ -379,7 +379,7 @@ console.log(second); // Output: 2
 console.log(others); // Output: [3, 4, 5]
 
 // Rest in object destructuring
-const person = { name: 'Alex', age: 25, city: 'Paris', job: 'Developer' };
+const person = { name: "Alex", age: 25, city: "Paris", job: "Developer" };
 const { name, age, ...otherDetails } = person;
 
 console.log(name); // Output: "Alex"
@@ -407,8 +407,8 @@ console.log(original); // Output: [1, 2, 3] (unchanged)
 console.log(copy); // Output: [1, 2, 3, 4]
 
 // Spreading objects
-const defaults = { theme: 'light', fontSize: 12, cache: true };
-const userPrefs = { theme: 'dark', notifications: false };
+const defaults = { theme: "light", fontSize: 12, cache: true };
+const userPrefs = { theme: "dark", notifications: false };
 
 const settings = { ...defaults, ...userPrefs };
 
@@ -424,11 +424,11 @@ Optional chaining helps prevent errors when accessing nested properties that mig
 
 ```javascript
 const user = {
-  name: 'Alex',
+  name: "Alex",
   details: {
     age: 30,
     preferences: {
-      theme: 'dark',
+      theme: "dark",
     },
   },
 };
@@ -447,7 +447,7 @@ const country = user?.details?.location?.country;
 console.log(country); // Output: undefined (no error!)
 
 // With arrays
-const users = [{ name: 'Alex', role: 'admin' }, { name: 'Sarah' }];
+const users = [{ name: "Alex", role: "admin" }, { name: "Sarah" }];
 
 console.log(users[0]?.role); // Output: "admin"
 console.log(users[1]?.role); // Output: undefined (no error)
