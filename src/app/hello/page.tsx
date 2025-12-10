@@ -84,7 +84,7 @@ export default function HelloPage() {
                   <p
                     className={`text-base text-gray-700 dark:text-gray-800 ${cedarvilleCursive.className}`}
                   >
-                    Sun-shine always helps
+                    ☀️
                   </p>
                 </div>
               </div>
