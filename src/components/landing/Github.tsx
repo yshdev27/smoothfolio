@@ -1,6 +1,7 @@
 "use client";
 
 import { githubConfig } from "@/config/Github";
+import Image from "next/image";
 import { useTheme } from "next-themes";
 import dynamic from "next/dynamic";
 import Link from "next/link";
@@ -49,7 +50,17 @@ export default function Github() {
   const [totalContributions, setTotalContributions] = useState<number>(0);
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
+  const [yesterdayWork, setYesterdayWork] = useState("—");
+  const [isOnline, setIsOnline] = useState(false);
   const { theme } = useTheme();
+
+  const formatDuration = (totalSeconds: number) => {
+    const hours = Math.floor(totalSeconds / 3600);
+    const minutes = Math.floor((totalSeconds % 3600) / 60);
+    if (hours > 0) return `${hours}h ${minutes}m`;
+    if (minutes > 0) return `${minutes}m`;
+    return "0 mins";
+  };
 
   useEffect(() => {
     async function fetchData() {
@@ -120,26 +131,66 @@ export default function Github() {
     fetchData();
   }, []);
 
+  useEffect(() => {
+    async function fetchYesterdayWork() {
+      try {
+        const response = await fetch("/api/wakatime/stats");
+        if (!response.ok) return;
+        const data = await response.json();
+        const seconds = Number(data.yesterdaySeconds ?? 0);
+        setYesterdayWork(formatDuration(seconds));
+        setIsOnline(Boolean(data.isOnline));
+      } catch (error) {
+        console.error("Failed to fetch yesterday work:", error);
+      }
+    }
+
+    fetchYesterdayWork();
+  }, []);
+
   return (
     <Container className="mt-20">
       <div className="space-y-6">
         {/* Header */}
-        <div className="flex items-center justify-between">
-          <div>
+        <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3">
+          <div className="min-w-0">
             <h2 className="text-2xl font-bold text-foreground">
               {githubConfig.title}
             </h2>
-            <p className="text-sm text-muted-foreground">
-              <b>{githubConfig.username}</b>&apos;s {githubConfig.subtitle}
-            </p>
             {!isLoading && !hasError && totalContributions > 0 && (
-              <p className="text-sm text-primary font-medium mt-1">
-                Total:{" "}
-                <span className="font-black">
-                  {totalContributions.toLocaleString()}
-                </span>{" "}
-                contributions
-              </p>
+              <div className="mt-1 flex w-full items-center gap-1 flex-wrap text-sm text-primary font-medium">
+                <span className="flex-shrink-0">
+                  Total:{" "}
+                  <span className="font-black">
+                    {totalContributions.toLocaleString()}
+                  </span>{" "}
+                  contributions
+                </span>
+                {/* Desktop / tablet right-aligned */}
+                <span className="hidden sm:inline md:flex items-center gap-1 ml-auto text-foreground whitespace-nowrap">
+                  <Image
+                    src="/assets/cursor.png"
+                    alt="Cursor"
+                    width={16}
+                    height={16}
+                    className="h-4 w-4 shrink-0"
+                  />
+                  <span className="text-muted-foreground">Yesterday worked</span>
+                  <b>{yesterdayWork}</b>
+                </span>
+                {/* Mobile fallback (stacks if space is tight) */}
+                <div className="sm:hidden flex items-center gap-1 ml-auto text-foreground">
+                  <Image
+                    src="/assets/cursor.png"
+                    alt="Cursor"
+                    width={16}
+                    height={16}
+                    className="h-4 w-4 shrink-0"
+                  />
+                  <span className="text-muted-foreground">Yesterday worked</span>
+                  <b>{yesterdayWork}</b>
+                </div>
+              </div>
             )}
           </div>
         </div>
@@ -175,8 +226,8 @@ export default function Github() {
           </div>
         ) : (
           <div className="relative overflow-hidden">
-            <div className="relative bg-background/50 backdrop-blur-sm rounded-lg border border-dashed dark:border-white/10 border-black/20 p-6">
-              <div className="w-full overflow-x-auto ">
+            <div className="relative bg-muted/30 rounded-lg border border-border/50 shadow-inner p-3 sm:p-4 md:p-5">
+              <div className="w-full overflow-x-auto">
                 <ActivityCalendar
                   data={contributions}
                   blockSize={12}
