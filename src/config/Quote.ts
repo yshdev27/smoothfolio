@@ -55,4 +55,12 @@ export const quotes = [
     quote: `Fear is a teacher and I don't skip class`,
     author: "Muhammad Ali",
   },
+  {
+    quote: `A moving mind is always fed. At rest, mind eats itself.`,
+    author: "Darrow O'lykos",
+  },
+  {
+    quote: `As you start to walk on the way, the way appears.`,
+    author: "Rumi",
+  },
 ];
