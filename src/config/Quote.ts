@@ -63,4 +63,8 @@ export const quotes = [
     quote: `As you start to walk on the way, the way appears.`,
     author: "Rumi",
   },
+  {
+    quote: `The cure for anything is salt water: sweat, tears or the sea.`,
+    author: "Isak Dinesen",
+  },
 ];
