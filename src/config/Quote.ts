@@ -67,4 +67,8 @@ export const quotes = [
     quote: `The cure for anything is salt water: sweat, tears or the sea.`,
     author: "Isak Dinesen",
   },
+  {
+    quote: `Everyone is an artist until rent is due.`,
+    author: "Unknown",
+  },
 ];
