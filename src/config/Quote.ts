@@ -71,4 +71,8 @@ export const quotes = [
     quote: `Everyone is an artist until rent is due.`,
     author: "Unknown",
   },
+  {
+    quote: `The bigger the dragon, the more epic the story and by consequence, more epic the hero.`,
+    author: "Alex Hormozi",
+  },
 ];
