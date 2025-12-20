@@ -75,4 +75,8 @@ export const quotes = [
     quote: `The bigger the dragon, the more epic the story and by consequence, more epic the hero.`,
     author: "Alex Hormozi",
   },
+  {
+    quote: `Be tolerant with others and strict with yourself.`,
+    author: "Marcus Aurelius",
+  },
 ];
