@@ -79,4 +79,8 @@ export const quotes = [
     quote: `Be tolerant with others and strict with yourself.`,
     author: "Marcus Aurelius",
   },
+  {
+    quote:`They can do all because they think they can.`,
+    author: "Virgil"
+  }
 ];
