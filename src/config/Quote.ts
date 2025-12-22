@@ -87,4 +87,8 @@ export const quotes = [
     quote: `A flower does not think of competing to the flower next to it. It just blooms.`,
     author: "Zen Shin",
   },
+  {
+    quote: `When your mind says quit, you're only 40% done.`,
+    author: "David Goggins",
+  },
 ];
