@@ -80,7 +80,11 @@ export const quotes = [
     author: "Marcus Aurelius",
   },
   {
-    quote:`They can do all because they think they can.`,
-    author: "Virgil"
-  }
+    quote: `They can do all because they think they can.`,
+    author: "Virgil",
+  },
+  {
+    quote: `A flower does not think of competing to the flower next to it. It just blooms.`,
+    author: "Zen Shin",
+  },
 ];
