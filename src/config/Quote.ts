@@ -91,4 +91,8 @@ export const quotes = [
     quote: `When your mind says quit, you're only 40% done.`,
     author: "David Goggins",
   },
+  {
+    quote: `Science will catch up to art and art will to the spiritual, eventually.`,
+    author: "Rick Rubin",
+  },
 ];
