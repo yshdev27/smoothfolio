@@ -95,4 +95,9 @@ export const quotes = [
     quote: `Science will catch up to art and art will to the spiritual, eventually.`,
     author: "Rick Rubin",
   },
+  {
+    quote: `The one fact pertaining to all conditions is that they will change.`, 
+    author: "Charles Dow",
+  },
+
 ];
