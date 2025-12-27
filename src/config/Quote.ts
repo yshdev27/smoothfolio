@@ -96,8 +96,11 @@ export const quotes = [
     author: "Rick Rubin",
   },
   {
-    quote: `The one fact pertaining to all conditions is that they will change.`, 
+    quote: `The one fact pertaining to all conditions is that they will change.`,
     author: "Charles Dow",
   },
-
+  {
+    quote: `It is really hard to make something easy`,
+    author: "balajis",
+  },
 ];
