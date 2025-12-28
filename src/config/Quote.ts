@@ -103,4 +103,8 @@ export const quotes = [
     quote: `It is really hard to make something easy`,
     author: "balajis",
   },
+  {
+    quote: `The highest human act is to inspire.`,
+    author: "Nipsey Hussle",
+  },
 ];
