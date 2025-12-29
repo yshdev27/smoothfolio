@@ -107,4 +107,12 @@ export const quotes = [
     quote: `The highest human act is to inspire.`,
     author: "Nipsey Hussle",
   },
+  {
+    quote: `Persistant, get it. Consistent, keep it. Grateful, attract more of it`,
+    author: "Harvey Mackay",
+  },
+  {
+    quote: `The only test of intelligence is if you get what you want.`,
+    author: "Naval",
+  },
 ];
