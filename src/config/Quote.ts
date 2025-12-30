@@ -115,4 +115,8 @@ export const quotes = [
     quote: `The only test of intelligence is if you get what you want.`,
     author: "Naval",
   },
+  {
+    quote: `Wisdom is the art of knowing what to overlook.`,
+    author: "William James",
+  },
 ];
