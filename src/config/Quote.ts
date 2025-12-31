@@ -119,4 +119,8 @@ export const quotes = [
     quote: `Wisdom is the art of knowing what to overlook.`,
     author: "William James",
   },
+  {
+    quote: `By believing passionately in something that does not yet exist, we create it. The nonexistent is whatever we have not sufficiently desired.`,
+    author: "Kafka",
+  },
 ];
