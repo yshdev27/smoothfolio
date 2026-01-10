@@ -123,4 +123,8 @@ export const quotes = [
     quote: `By believing passionately in something that does not yet exist, we create it. The nonexistent is whatever we have not sufficiently desired.`,
     author: "Kafka",
   },
+   {
+    quote: `Prescriptions are for the unserious`,
+    author: "Kapil Gupta MD",
+  },
 ];
