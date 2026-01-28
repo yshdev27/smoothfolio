@@ -131,4 +131,8 @@ export const quotes = [
     quote: `We can't win against obsession. They care, we don't. They win.`,
     author: "Douglas Adams",
   },
+  {
+    quote: `Courage is in much shorter supply than genius.`,
+    author: "Peter Thiel",
+  },
 ];
