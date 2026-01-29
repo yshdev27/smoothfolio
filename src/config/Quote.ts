@@ -135,4 +135,8 @@ export const quotes = [
     quote: `Courage is in much shorter supply than genius.`,
     author: "Peter Thiel",
   },
+  {
+    quote: `The LABEL is the limit.`,
+    author: "Unknown",
+  },
 ];
