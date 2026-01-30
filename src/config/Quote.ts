@@ -139,4 +139,8 @@ export const quotes = [
     quote: `The LABEL is the limit.`,
     author: "Unknown",
   },
+  {
+    quote: `It's not what I am underneath, but what I do that defines me.`,
+    author: "Bruce Wayne",
+  },
 ];
