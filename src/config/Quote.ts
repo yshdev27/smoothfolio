@@ -143,4 +143,8 @@ export const quotes = [
     quote: `It's not what I am underneath, but what I do that defines me.`,
     author: "Bruce Wayne",
   },
+  {
+    quote: `Publish the imperfect draft.`,
+    author: "Jack",
+  },
 ];
