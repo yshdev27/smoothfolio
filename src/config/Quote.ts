@@ -147,4 +147,8 @@ export const quotes = [
     quote: `Publish the imperfect draft.`,
     author: "Jack",
   },
+  {
+    quote: `To increase your success, double your failure rate.`,
+    author: "Thomas Watson Jr",
+  },
 ];
