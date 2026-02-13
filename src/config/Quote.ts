@@ -155,4 +155,8 @@ export const quotes = [
     quote: `Code scripts machines, media scripts human beings.`,
     author: "bajalis",
   },
+  
+    quote: `To increase your success, double your failure rate.`,
+    author: "Thomas Watson Jr",
+  },
 ];
