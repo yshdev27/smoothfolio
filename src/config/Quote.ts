@@ -159,4 +159,8 @@ export const quotes = [
     quote: `To increase your success, double your failure rate.`,
     author: "Thomas Watson Jr",
   },
+  {
+    quote: `The grass is greener where you water it.`,
+    author: "Unknown",
+  },
 ];
