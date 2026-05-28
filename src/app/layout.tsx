@@ -6,6 +6,7 @@ import Navbar from "@/components/common/Navbar";
 import { Quote } from "@/components/common/Quote";
 import { ThemeProvider } from "@/components/common/ThemeProviders";
 import { generateMetadata as getMetadata } from "@/config/Meta";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import ReactLenis from "lenis/react";
 import { Outfit } from "next/font/google";
 import { ViewTransitions } from "next-view-transitions";
@@ -49,6 +50,7 @@ export default function RootLayout({
               <Footer />
               <ChatBubble />
               {/* <UmamiAnalytics /> */}
+              <SpeedInsights />
             </ReactLenis>
           </ThemeProvider>
         </body>
